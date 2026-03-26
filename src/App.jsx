@@ -12,7 +12,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
   return `${y}/${m}/${day}`;
 }
   
-const API_BASE = "https://airdrops-production.up.railway.app";
+const API_BASE = "https://airdrops-production-4991.up.railway.app";
 const FREE_DAILY_LIMIT = 999;;
 const NAV_DELAY = 400;
 
@@ -2051,12 +2051,9 @@ try {
   };
 
   const goToPayment = (plan = paymentType) => {
-    setUnlocking(true);
-
-    setTimeout(() => {
-      delayedNavigate(`/payment?plan=${plan}`);
-    }, 600);
-  };
+  setUnlocking(true);
+  window.location.href = `/payment?plan=${plan}`;
+};
 
   const buildResultFromApi = (cleanAddress, data) => {
     console.log("projectDetails:", data.projectDetails);
@@ -2167,17 +2164,17 @@ if (isPaid) {
   const savedDate = localStorage.getItem("queryDate");
   let count = parseInt(localStorage.getItem("queryCount") || "0", 10);
 
-  if (savedDate === today) {
-    if (count >= 3 && !isPaid) {
-      alert("Free limit reached, please upgrade");
-      window.location.href = "/payment";
-      return;
-    }
-  } else {
-    localStorage.setItem("queryDate", today);
-    localStorage.setItem("queryCount", "0");
-    count = 0;
-  }
+  if (savedDate !== today) {
+  localStorage.setItem("queryDate", today);
+  localStorage.setItem("queryCount", "0");
+  count = 0;
+}
+
+// ✅ 统一在这里判断（关键）
+if (!isPaid && queryCount >= 3) {
+  window.location.href = `/payment?plan=${paymentType || "monthly"}`;
+  return;
+}
 
   const cleanAddress = (addressOverride || walletAddress).trim();
 
