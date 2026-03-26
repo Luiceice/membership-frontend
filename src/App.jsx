@@ -124,6 +124,7 @@ const translations = {
     potentialTitle: "Potential Airdrop Opportunities",
     claimableTitle: "Claimable Airdrops Detected",
     unlockContact: "Contact support to unlock full airdrop access",
+    exactPayHint: "Por favor, pague exactamente la cantidad mostrada, de lo contrario el sistema puede no reconocer el pago",
   },
 
   hk: {
@@ -231,6 +232,7 @@ const translations = {
     potentialTitle: "潛在空投機會",
     claimableTitle: "已檢測到可領取空投",
     unlockContact: "聯繫客服解鎖完整空投路徑",
+    exactPayHint: "請嚴格按照顯示金額支付，否則系統可能無法自動識別訂單",
   },
 
   jp: {
@@ -338,6 +340,7 @@ const translations = {
     potentialTitle: "潜在的なエアドロップ機会",
     claimableTitle: "受け取り可能なエアドロップを検出",
     unlockContact: "サポートに連絡してすべてのエアドロップを解放",
+    exactPayHint: "表示された金額を正確にお支払いください。そうでない場合、システムが支払いを認識できない可能性があります",
   },
 
   es: {
@@ -445,6 +448,7 @@ const translations = {
     potentialTitle: "Oportunidades potenciales de airdrop",
     claimableTitle: "Airdrops reclamables detectados",
     unlockContact: "Contactar soporte para desbloquear acceso completo a airdrop",
+    exactPayHint: "Por favor, pague exactamente la cantidad mostrada, de lo contrario el sistema puede no reconocer el pago",
   },
 
   it: {
@@ -552,6 +556,7 @@ const translations = {
     potentialTitle: "Potenziali opportunità di airdrop",
     claimableTitle: "Airdrop riscattabili rilevati",
     unlockContact: "Contatta il supporto per sbloccare l'accesso completo agli airdrop",
+    exactPayHint: "Si prega di pagare esattamente l'importo indicato, altrimenti il sistema potrebbe non riconoscere il pagamento",
   },
 
   kr: {
@@ -658,6 +663,7 @@ const translations = {
     unlockingRoutes: "고급 경로를 잠금 해제하는 중...",
     potentialTitle: "잠재적 에어드롭 기회",
     claimableTitle: "청구 가능한 에어드롭 감지",
+    exactPayHint: "표시된 금액을 정확히 결제해주세요. 그렇지 않으면 시스템이 결제를 인식하지 못할 수 있습니다",
   },
 
   ru: {
@@ -766,6 +772,7 @@ const translations = {
     potentialTitle: "Потенциальные возможности аирдропа",
     claimableTitle: "Обнаружены доступные аирдропы",
     unlockContact: "고객센터에 문의하여 전체 에어드랍을 잠금 해제하세요",
+    exactPayHint: "Пожалуйста, оплатите точную указанную сумму, иначе система может не распознать платеж",
   },
 };
 
@@ -1109,11 +1116,28 @@ function useGlobalStyles() {
     const style = document.createElement("style");
     style.id = styleId;
     style.innerHTML = `
-      * { box-sizing: border-box; }
-      html, body, #root { margin: 0; min-height: 100%; background: #07090d; }
-      body {
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: #eef2f6;
+  * { box-sizing: border-box; }
+  html, body, #root { margin: 0; min-height: 100%; background: #07090d; }
+  body {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #eef2f6;
+  }
+
+  @keyframes payHintPulse {
+    0% {
+      opacity: 1;
+      text-shadow: 0 0 0px rgba(255,77,79,0);
+    }
+    50% {
+      opacity: 0.6;
+      text-shadow: 0 0 8px rgba(255,77,79,0.6);
+    }
+    100% {
+      opacity: 1;
+      text-shadow: 0 0 0px rgba(255,77,79,0);
+    }
+  }
+
       }
 
       .pulse-btn {
@@ -1882,9 +1906,13 @@ const qrUrl =
               </div>
 
               <div style={styles.infoLine}>
-                <span style={styles.labelSmall}>{t.payAmount}</span>
-                <span style={styles.orderMeta}>{order.amountUsdt} USDT</span>
-              </div>
+               <span style={styles.labelSmall}>{t.payAmount}</span>
+               <span style={styles.orderMeta}>{order.amountUsdt} USDT</span>
+             </div>
+
+             <div style={styles.payHint}>
+            ⚠️ {t.exactPayHint}
+             </div>
 
               <div style={styles.infoLine}>
                 <span style={styles.labelSmall}>{t.payNetwork}</span>
@@ -2749,6 +2777,15 @@ const styles = {
     position: "relative",
     overflow: "hidden",
   },
+
+  payHint: {
+  marginTop: "6px",
+  fontSize: "0.75rem",
+  lineHeight: 1.4,
+  color: "#ff4d4f",
+  fontWeight: 600,
+  animation: "payHintPulse 1.6s ease-in-out infinite",
+},
 
   container: {
     position: "relative",
