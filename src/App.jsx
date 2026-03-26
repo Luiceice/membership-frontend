@@ -123,6 +123,7 @@ const translations = {
     unlockingRoutes: "Unlocking advanced routes...",
     potentialTitle: "Potential Airdrop Opportunities",
     claimableTitle: "Claimable Airdrops Detected",
+    unlockContact: "Contact support to unlock full airdrop access",
   },
 
   hk: {
@@ -215,7 +216,7 @@ const translations = {
     claimNow: "立即領取",
     inspectMore: "查看更多",
     scanAgain: "再次查詢",
-    realSignals: "真實查詢 + 本地預估",
+    realSignals: "真實查詢 ",
     planMonthlyHint: "適合短期測試",
     planYearlyHint: "適合長期追蹤",
     paymentCheckFailed: "會員狀態檢查失敗",
@@ -229,6 +230,7 @@ const translations = {
     unlockingRoutes: "正在解鎖進階路線...",
     potentialTitle: "潛在空投機會",
     claimableTitle: "已檢測到可領取空投",
+    unlockContact: "聯繫客服解鎖完整空投路徑",
   },
 
   jp: {
@@ -335,6 +337,7 @@ const translations = {
     unlockingRoutes: "高度なルートを解放中...",
     potentialTitle: "潜在的なエアドロップ機会",
     claimableTitle: "受け取り可能なエアドロップを検出",
+    unlockContact: "サポートに連絡してすべてのエアドロップを解放",
   },
 
   es: {
@@ -441,6 +444,7 @@ const translations = {
     unlockingRoutes: "Desbloqueando rutas avanzadas...",
     potentialTitle: "Oportunidades potenciales de airdrop",
     claimableTitle: "Airdrops reclamables detectados",
+    unlockContact: "Contactar soporte para desbloquear acceso completo a airdrop",
   },
 
   it: {
@@ -547,6 +551,7 @@ const translations = {
     unlockingRoutes: "Sblocco dei percorsi avanzati...",
     potentialTitle: "Potenziali opportunità di airdrop",
     claimableTitle: "Airdrop riscattabili rilevati",
+    unlockContact: "Contatta il supporto per sbloccare l'accesso completo agli airdrop",
   },
 
   kr: {
@@ -760,6 +765,7 @@ const translations = {
     unlockingRoutes: "Открываем продвинутые маршруты...",
     potentialTitle: "Потенциальные возможности аирдропа",
     claimableTitle: "Обнаружены доступные аирдропы",
+    unlockContact: "고객센터에 문의하여 전체 에어드랍을 잠금 해제하세요",
   },
 };
 
@@ -2147,7 +2153,7 @@ if (isPaid) {
       projects: visibleProjects,
       lockedCount,
       totalProjects: enrichedProjects.length,
-      title: data.found ? t.highValueDetected : t.noResultTitle,
+      title: t.highValueDetected,
       network: visibleProjects[0]?.network || "Multiple",
       gasToken: visibleProjects[0]?.gasToken || "-",
       claimType: visibleProjects[0]?.claimType || "predicted",
@@ -2452,20 +2458,24 @@ if (!isPaid && count >= 3) {
                 </div>
               ) : null}
 
-              {!isPaid && result.lockedCount > 0 ? (
-                <div style={styles.lockNotice}>
-                  🔒 {t.lockedRouteDesc.replace("{count}", String(result.lockedCount))}
-                </div>
-              ) : null}
+              <div style={styles.lockNotice}>
+  🔒 {t.lockedRouteDesc.replace("{count}", "25")}
 
-              <div style={styles.noticeLine}>{t.riskNotice}</div>
-
-              {redirectCountdown !== null ? (
-                <div style={styles.redirectText}>
-                  {t.redirecting} {redirectCountdown}...
-                </div>
-              ) : null}
-
+  <div style={{ marginTop: "8px" }}>
+    <a
+      href="https://t.me/voidpulse_support"
+      target="_blank"
+      style={{
+        color: "#4da6ff",
+        textDecoration: "none",
+        fontSize: "0.82rem",
+        fontWeight: 600,
+      }}
+    >
+      📩 {t.unlockContact}
+    </a>
+  </div>
+</div>
               {resultSourceBadge ? (
                 <div
                   style={{
