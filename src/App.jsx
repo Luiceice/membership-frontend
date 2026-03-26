@@ -12,7 +12,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
   return `${y}/${m}/${day}`;
 }
   
-const API_BASE = "https://airdrops-production-4991.up.railway.app";
+const API_BASE = "http://127.0.0.1:8787";
+console.log("API_BASE now =", API_BASE);
 const FREE_DAILY_LIMIT = 999;;
 const NAV_DELAY = 400;
 
@@ -1753,14 +1754,18 @@ return p === "yearly" ? "yearly" : "monthly";
 }
 
       const orderData = await fetchJsonSafe(`${API_BASE}/api/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-  sessionId,
-  plan,
-  payerAddress: localStorage.getItem("lastCheckedWallet") || null,
-}),
-      });
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    sessionId,
+    plan,
+    payerAddress: localStorage.getItem("lastCheckedWallet") || null,
+  }),
+});
+
+console.log("orderData raw =", JSON.stringify(orderData));
+
+console.log("orderData =", orderData);
 
       if (cancelled) return;
 
