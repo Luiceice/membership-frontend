@@ -2171,7 +2171,8 @@ if (isPaid) {
 }
 
 // ✅ 统一在这里判断（关键）
-if (!isPaid && queryCount >= 3) {
+if (!isPaid && count >= 3) {
+  console.log("limit hit →", { count, isPaid, paymentType });
   window.location.href = `/payment?plan=${paymentType || "monthly"}`;
   return;
 }
@@ -2294,7 +2295,7 @@ if (!isPaid && queryCount >= 3) {
               <Logo />
               <div style={styles.brandBlock}>
                 <div style={styles.brandTitle}>VOIDPULSE</div>
-                <div style={styles.brandSub}>{t.subtitle} | BUILD-1</div>
+                <div style={styles.brandSub}>{t.subtitle}</div>
               </div>
             </div>
 
