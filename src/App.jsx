@@ -2294,7 +2294,7 @@ if (!isPaid && queryCount >= 3) {
               <Logo />
               <div style={styles.brandBlock}>
                 <div style={styles.brandTitle}>VOIDPULSE</div>
-                <div style={styles.brandSub}>{t.subtitle}</div>
+                <div style={styles.brandSub}>{t.subtitle} | BUILD-1</div>
               </div>
             </div>
 
