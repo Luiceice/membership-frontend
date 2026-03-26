@@ -1,0 +1,30 @@
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  width: 100%;
+
+  /* 👇 深色主题回来了 */
+  background: #0f1115;
+  color: #0c0d27;
+
+  font-family: Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 按钮美化（可选但建议） */
+button {
+  background: #1f2937;
+  color: #efeff3;
+  border: 1px solid #374151;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2d3748;
+}
