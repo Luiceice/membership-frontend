@@ -643,6 +643,7 @@ const translations = {
     redirecting: "이동 중",
     unlockTitle: "전체 패널 잠금 해제",
     unlockSub: "지금 활성화해서 더 많은 신호와 클레임 입구 확인",
+    unlockContact:"에어드롭 전체 접근을 열려면 고객센터에 문의하세요",
     cancel: "취소",
     paidAlready: "이 세션은 이미 PRO 활성화 상태입니다",
     backHome: "홈으로 돌아가기",
@@ -941,7 +942,7 @@ function getStoredLang() {
     ? "es"
     : browserLang.includes("it")
     ? "it"
-    : browserLang.includes("ko")
+    : browserLang.includes("kr")
     ? "kr"
     : "gb";
 
@@ -1690,6 +1691,20 @@ function IconCloseButton({ onClick, title }) {
 /* ===================== payment page ===================== */
 function PaymentPage({ lang, setLang }) {
   const t = tFor(lang);
+
+  console.log("当前语言 lang =", lang);
+
+  if (lang === "hk") console.log("👉 当前语言：繁体中文");
+  else if (lang === "en") console.log("👉 当前语言：英语");
+  else if (lang === "ru") console.log("👉 当前语言：俄语");
+  else if (lang === "bg") console.log("👉 当前语言：保加利亚语");
+  else if (lang === "es") console.log("👉 当前语言：西班牙语");
+  else if (lang === "it") console.log("👉 当前语言：意大利语");
+  else if (lang === "ja") console.log("👉 当前语言：日语");
+  else if (lang === "ko") console.log("👉 当前语言：韩语");
+  else console.log("👉 当前语言：未知语言", lang);
+
+  console.log("unlockContact =", t.unlockContact);
 
   const [sessionId, setSessionId] = useState("");
   const [order, setOrder] = useState(null);
