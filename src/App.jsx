@@ -1339,14 +1339,34 @@ function useGlobalStyles() {
       }
 
       @keyframes rabbitFloatA {
-        0%, 100% { transform: translate3d(0px, 0px, 0px); }
-        50% { transform: translate3d(0.8px, -3px, 0px); }
-      }
+  0% {
+    transform: translate(0px, 0px);
+  }
+  30% {
+    transform: translate(calc(0.5px + 0.5px * var(--rand)), calc(-2px - 1px * var(--rand)));
+  }
+  55% {
+    transform: translate(calc(0.5px + 0.5px * var(--rand)), calc(-2px - 1px * var(--rand)));
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
 
-      @keyframes rabbitFloatB {
-        0%, 100% { transform: translate3d(0px, 0px, 0px); }
-        50% { transform: translate3d(-0.8px, -4px, 0px); }
-      }
+@keyframes rabbitFloatB {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  35% {
+    transform: translate(calc(-0.5px - 0.5px * var(--rand2)), calc(-1.5px - 1px * var(--rand2)));
+  }
+  65% {
+    transform: translate(calc(-0.5px - 0.5px * var(--rand2)), calc(-1.5px - 1px * var(--rand2)));
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
 
       @keyframes rabbitTwinkleA {
         0%, 100% { opacity: 0.2; }
@@ -2346,7 +2366,14 @@ function PixelBearPanel() {
   const rightRabbit = useMemo(() => buildRabbitMatrix(172, 2, "blue"), []);
 
   const renderRabbit = (rabbit, key, motionClass) => (
-    <g key={key} className={motionClass}>
+    <g
+  key={key}
+  className={motionClass}
+  style={{
+    "--rand": Math.random(),
+    "--rand2": Math.random()
+  }}
+>
       {rabbit.outlineRects.map((rect, index) => (
         <rect
           key={`${key}-o-${index}`}
