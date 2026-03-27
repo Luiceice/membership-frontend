@@ -12,7 +12,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
   return `${y}/${m}/${day}`;
 }
   
-const API_BASE = "http://127.0.0.1:8787";
+const API_BASE = "https://airdrops-production-4991.up.railway.app";
 console.log("API_BASE now =", API_BASE);
 const FREE_DAILY_LIMIT = 3;
 const NAV_DELAY = 400;
