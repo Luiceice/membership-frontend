@@ -14,7 +14,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
   
 const API_BASE = "http://127.0.0.1:8787";
 console.log("API_BASE now =", API_BASE);
-const FREE_DAILY_LIMIT = 999;;
+const FREE_DAILY_LIMIT = 3;
 const NAV_DELAY = 400;
 
 /* ===================== i18n ===================== */
@@ -772,7 +772,7 @@ const translations = {
     unlockingRoutes: "Открываем продвинутые маршруты...",
     potentialTitle: "Потенциальные возможности аирдропа",
     claimableTitle: "Обнаружены доступные аирдропы",
-    unlockContact: "고객센터에 문의하여 전체 에어드랍을 잠금 해제하세요",
+    unlockContact: "Свяжитесь с поддержкой, чтобы открыть полный доступ к аирдропам",
     exactPayHint: "Пожалуйста, оплатите точную указанную сумму, иначе система может не распознать платеж",
   },
 };
@@ -1810,28 +1810,45 @@ function PaymentPage({ lang, setLang }) {
           data.txHash &&
           String(data.txHash).trim() !== ""
         ) {
-          clearInterval(timer);
+          const orderMembershipActive = !!data?.membership?.active;
+          const orderMembershipEndsAt = data?.membership?.expiry || null;
 
-          try {
-            const membershipData = await fetchJsonSafe(
-              `${API_BASE}/api/membership/${sessionId}?t=${Date.now()}`
-            );
+          let membershipData = {
+            active: orderMembershipActive,
+            endsAt: orderMembershipEndsAt,
+          };
 
-            localStorage.setItem(
-              "isPaid",
-              membershipData.active ? "true" : "false"
-            );
+          if (!membershipData.active) {
+            for (let i = 0; i < 8; i += 1) {
+              try {
+                membershipData = await fetchJsonSafe(
+                  `${API_BASE}/api/membership/${sessionId}?t=${Date.now()}`
+                );
+
+                if (membershipData.active) break;
+              } catch (e) {
+                console.error("refresh membership after payment failed", e);
+              }
+
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+          }
+
+          if (membershipData.active) {
+            clearInterval(timer);
+            localStorage.setItem("isPaid", "true");
+            setAlreadyPaid(true);
 
             if (membershipData.endsAt) {
               localStorage.setItem("expiryDate", membershipData.endsAt);
             } else {
               localStorage.removeItem("expiryDate");
             }
-          } catch (e) {
-            console.error("refresh membership after payment failed", e);
-          }
 
-          window.location.replace(`${window.location.origin}/`);
+            window.location.replace(`${window.location.origin}/`);
+          } else {
+            setStatus(t.paymentCheckFailed);
+          }
         }
       } catch (e) {
         console.error("payment poll failed", e);
@@ -2037,19 +2054,7 @@ function HomePage({ lang, setLang }) {
       }
 
       setBackendReady(true);
-
-      fetchJsonSafe(`${API_BASE}/api/query`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sessionId: sid,
-          walletAddress: "0x1111111111111111111111111111111111111111",
-        }),
-      }).catch((e) => {
-        console.error("backend prewarm failed", e);
-      });
+      // free-count fix: removed hidden prewarm /api/query call so free checks are not consumed on load
 
       const today = getTodayKey();
       const savedDate = localStorage.getItem("queryDate");
@@ -2239,11 +2244,9 @@ if (paidFlag) {
     count = 0;
   }
 
-  if (!membershipActive && count >= 3) {
-    console.log("limit hit →", { count, membershipActive, paymentType });
-    window.location.href = `/payment?plan=${paymentType || "monthly"}`;
-    return;
-  }
+  // Do not hard-block on the frontend before the request.
+  // The backend is the source of truth for the 3 free checks rule,
+  // so the 4th query will return FREE_LIMIT_REACHED and then show the modal.
 
   try {
     setQueryLoading(true);
