@@ -1056,7 +1056,7 @@ async function fetchJsonSafe(url, options) {
 
 function delayedNavigate(url, delay = NAV_DELAY) {
   window.setTimeout(() => {
-    window.location.href = url;
+    window.open(url, "_blank");
   }, delay);
 }
 
@@ -1728,8 +1728,8 @@ function PaymentPage({ lang, setLang }) {
 
         if (!sid) {
           const data = await fetchJsonSafe(`${API_BASE}/api/session`, {
-            method: "POST",
-          });
+  method: "POST",
+});
           sid = data.sessionId;
           localStorage.setItem("sessionId", sid);
         }
