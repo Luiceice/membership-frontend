@@ -1,7 +1,21 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-         function formatDate(dateStr) {
+
+console.log("🔥 NEW VERSION");
+
+  function formatDate(dateStr) {
   if (!dateStr) return "";
 
+  const rabbitStyle = `
+@keyframes rabbitFloatA {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes rabbitFloatB {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+`;
   
 
   const d = new Date(dateStr);
@@ -1140,8 +1154,6 @@ function useGlobalStyles() {
     }
   }
 
-      }
-
       .pulse-btn {
         position: relative;
         overflow: hidden;
@@ -1277,6 +1289,22 @@ function useGlobalStyles() {
         shape-rendering: crispEdges;
       }
 
+      .rabbit-float-a,
+      .rabbit-float-b {
+        transform-box: fill-box;
+        transform-origin: center;
+        will-change: transform;
+      }
+
+      .rabbit-float-a {
+        animation: rabbitFloatA 3.8s ease-in-out infinite;
+      }
+
+      .rabbit-float-b {
+        animation: rabbitFloatB 4.6s ease-in-out infinite;
+        animation-delay: 0.8s;
+      }
+
       .rabbit-outline {
         fill: none;
         stroke: rgba(255,240,248,0.92);
@@ -1308,6 +1336,16 @@ function useGlobalStyles() {
       .rabbit-spark {
         fill: rgba(255,238,248,0.9);
         animation: rabbitSpark 5.6s ease-in-out infinite;
+      }
+
+      @keyframes rabbitFloatA {
+        0%, 100% { transform: translate3d(0px, 0px, 0px); }
+        50% { transform: translate3d(0.8px, -3px, 0px); }
+      }
+
+      @keyframes rabbitFloatB {
+        0%, 100% { transform: translate3d(0px, 0px, 0px); }
+        50% { transform: translate3d(-0.8px, -4px, 0px); }
       }
 
       @keyframes rabbitTwinkleA {
@@ -2307,8 +2345,8 @@ function PixelBearPanel() {
   const leftRabbit = useMemo(() => buildRabbitMatrix(42, 1, "pink"), []);
   const rightRabbit = useMemo(() => buildRabbitMatrix(172, 2, "blue"), []);
 
-  const renderRabbit = (rabbit, key) => (
-    <g key={key}>
+  const renderRabbit = (rabbit, key, motionClass) => (
+    <g key={key} className={motionClass}>
       {rabbit.outlineRects.map((rect, index) => (
         <rect
           key={`${key}-o-${index}`}
@@ -2360,8 +2398,8 @@ function PixelBearPanel() {
   return (
     <div className="pixel-bear-panel">
       <svg className="pixel-bear-svg" viewBox="0 0 320 170" aria-hidden="true">
-        {renderRabbit(leftRabbit, "left")}
-        {renderRabbit(rightRabbit, "right")}
+        {renderRabbit(leftRabbit, "left", "rabbit-float-a")}
+        {renderRabbit(rightRabbit, "right", "rabbit-float-b")}
       </svg>
     </div>
   );
