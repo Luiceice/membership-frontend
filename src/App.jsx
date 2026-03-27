@@ -1699,7 +1699,7 @@ function PaymentPage({ lang, setLang }) {
   const plan = useMemo(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const p = urlParams.get("plan");
-return p === "yearly" ? "yearly" : "monthly";
+    return p === "yearly" ? "yearly" : "monthly";
   }, []);
 
   useEffect(() => {
@@ -1730,120 +1730,127 @@ return p === "yearly" ? "yearly" : "monthly";
   }, [t.paymentCheckFailed]);
 
   useEffect(() => {
-  if (!sessionId) return;
-  let cancelled = false;
+    if (!sessionId) return;
+    let cancelled = false;
 
-  async function initPayment() {
-    try {
-      localStorage.removeItem("latestOrder");
+    async function initPayment() {
+      try {
+        localStorage.removeItem("latestOrder");
 
-      const membershipData = await fetchJsonSafe(
-        `${API_BASE}/api/membership/${sessionId}`
-      );
+        let membershipData = { active: false, endsAt: null };
 
-      if (cancelled) return;
+        try {
+          membershipData = await fetchJsonSafe(
+            `${API_BASE}/api/membership/${sessionId}?t=${Date.now()}`
+          );
+        } catch (e) {
+          console.error("membership init error:", e);
+        }
 
-      if (membershipData.active) {
+        if (cancelled) return;
 
-  if (membershipData.endsAt) {
-    localStorage.setItem("expiryDate", membershipData.endsAt);
-  }
+        if (membershipData.active) {
+          if (membershipData.endsAt) {
+            localStorage.setItem("expiryDate", membershipData.endsAt);
+          }
+          localStorage.setItem("isPaid", "true");
+          setAlreadyPaid(true);
+          setStatus(t.paidAlready);
+          return;
+        }
 
-  window.location.href = `${window.location.origin}/`;
-  return;
-}
+        const orderData = await fetchJsonSafe(`${API_BASE}/api/orders`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sessionId,
+            plan,
+            payerAddress: localStorage.getItem("lastCheckedWallet") || null,
+          }),
+        });
 
-      const orderData = await fetchJsonSafe(`${API_BASE}/api/orders`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    sessionId,
-    plan,
-    payerAddress: localStorage.getItem("lastCheckedWallet") || null,
-  }),
-});
+        if (cancelled) return;
 
-console.log("orderData raw =", JSON.stringify(orderData));
-
-console.log("orderData =", orderData);
-
-      if (cancelled) return;
-
-      const safePlan = plan === "yearly" ? "yearly" : "monthly";
-const fullOrder = { ...orderData, sessionId, plan: safePlan };
-      setOrder(fullOrder);
-      
-      setStatus(t.payReady);
-    } catch (e) {
-      console.error("initPayment failed", e);
-      setStatus(t.createOrderFailed);
+        setAlreadyPaid(false);
+        setOrder(orderData);
+        localStorage.setItem("latestOrder", JSON.stringify(orderData));
+        setStatus(t.payReady);
+      } catch (e) {
+        console.error("initPayment failed", e);
+        setStatus(t.createOrderFailed);
+      }
     }
-  }
 
-  initPayment();
+    initPayment();
 
-  return () => {
-    cancelled = true;
-  };
-}, [sessionId, plan, t.paidAlready, t.payReady, t.createOrderFailed]);
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionId, plan, t.paidAlready, t.payReady, t.createOrderFailed]);
 
-useEffect(() => {
-  if (!order?.orderId || !sessionId) return;
+  useEffect(() => {
+    if (!order?.orderId || !sessionId || alreadyPaid) return;
 
-  let cancelled = false;
+    let cancelled = false;
 
-  const timer = setInterval(async () => {
-    try {
-      const data = await fetchJsonSafe(`${API_BASE}/api/orders/${order.orderId}`);
+    const timer = setInterval(async () => {
+      try {
+        const data = await fetchJsonSafe(
+          `${API_BASE}/api/orders/${order.orderId}?t=${Date.now()}`
+        );
 
-      console.log("poll order status:", data.status, data.txHash);
+        if (cancelled) return;
 
-      if (cancelled) return;
+        const merged = { ...order, ...data };
+        setOrder(merged);
+        localStorage.setItem("latestOrder", JSON.stringify(merged));
 
-      const merged = { ...order, ...data };
-      setOrder(merged);
-      localStorage.setItem("latestOrder", JSON.stringify(merged));
+        if (
+          data.status === "paid" &&
+          data.txHash &&
+          String(data.txHash).trim() !== ""
+        ) {
+          clearInterval(timer);
 
-    if (
-  data.status === "paid" &&
-  data.txHash &&
-  String(data.txHash).trim() !== ""
-) {
-  clearInterval(timer);
+          try {
+            const membershipData = await fetchJsonSafe(
+              `${API_BASE}/api/membership/${sessionId}?t=${Date.now()}`
+            );
 
-  // ✅ 关键：支付成功后强制刷新会员状态
-  try {
-    const membershipData = await fetchJsonSafe(
-      `${API_BASE}/api/membership/${sessionId}`
-    );
+            localStorage.setItem(
+              "isPaid",
+              membershipData.active ? "true" : "false"
+            );
 
-    if (membershipData.endsAt) {
-      localStorage.setItem("expiryDate", membershipData.endsAt);
-    }
-  } catch (e) {
-    console.error("refresh membership after payment failed", e);
-  }
+            if (membershipData.endsAt) {
+              localStorage.setItem("expiryDate", membershipData.endsAt);
+            } else {
+              localStorage.removeItem("expiryDate");
+            }
+          } catch (e) {
+            console.error("refresh membership after payment failed", e);
+          }
 
-  window.location.replace(`${window.location.origin}/`);
-  return;
-}
-    } catch (e) {
-      console.error("payment poll failed", e);
-    }
-  }, 800);
+          window.location.replace(`${window.location.origin}/`);
+        }
+      } catch (e) {
+        console.error("payment poll failed", e);
+      }
+    }, 3000);
 
-  return () => {
-    cancelled = true;
-    clearInterval(timer);
-  };
-}, [order?.orderId, sessionId, t.payPaid, alreadyPaid]);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [order?.orderId, sessionId, alreadyPaid]);
 
-const qrUrl =
-  order?.paymentAddress
-    ? `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(
-        order.paymentAddress
-      )}`
-    : "";
+  const qrUrl =
+    order?.paymentAddress
+      ? `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(
+          order.paymentAddress
+        )}`
+      : "";
+
   return (
     <div style={styles.page}>
       <div className="vp-face" />
@@ -1881,13 +1888,13 @@ const qrUrl =
           <div style={styles.payStatus}>{status}</div>
 
           <div style={styles.infoLine}>
-  <span style={styles.labelSmall}>{t.choosePlan}</span>
-  <span style={{ ...styles.priceAmountMini, marginLeft: "auto", textAlign: "right" }}>
-    {order && (plan === "monthly" || plan === "yearly")
-  ? `${order.amountUsdt} USDT`
-  : "--"}
-  </span>
-</div>
+            <span style={styles.labelSmall}>{t.choosePlan}</span>
+            <span style={{ ...styles.priceAmountMini, marginLeft: "auto", textAlign: "right" }}>
+              {order && (plan === "monthly" || plan === "yearly")
+                ? `${order.amountUsdt} USDT`
+                : "--"}
+            </span>
+          </div>
 
           {alreadyPaid ? (
             <>
@@ -1911,13 +1918,13 @@ const qrUrl =
               </div>
 
               <div style={styles.infoLine}>
-               <span style={styles.labelSmall}>{t.payAmount}</span>
-               <span style={styles.orderMeta}>{order.amountUsdt} USDT</span>
-             </div>
+                <span style={styles.labelSmall}>{t.payAmount}</span>
+                <span style={styles.orderMeta}>{order.amountUsdt} USDT</span>
+              </div>
 
-             <div style={styles.payHint}>
-            ⚠️ {t.exactPayHint}
-             </div>
+              <div style={styles.payHint}>
+                ⚠️ {t.exactPayHint}
+              </div>
 
               <div style={styles.infoLine}>
                 <span style={styles.labelSmall}>{t.payNetwork}</span>
@@ -2005,24 +2012,12 @@ function HomePage({ lang, setLang }) {
       }
 
       setSessionId(sid);
-      // ✅ 同步会员状态（关键修复）
-try {
-  const res = await fetch(`${API_BASE}/api/membership/${sid}`);
-  const data = await res.json();
-
-  if (data.active) {
-    setIsPaid(true);
-  } else {
-    setIsPaid(false);
-  }
-} catch (e) {
-  console.error("membership check failed");
-}
 
       try {
         const membershipData = await fetchJsonSafe(
-          `${API_BASE}/api/membership/${sid}`
+          `${API_BASE}/api/membership/${sid}?t=${Date.now()}`
         );
+
         setIsPaid(!!membershipData.active);
         setExpiryDate(membershipData.endsAt || "");
         localStorage.setItem(
@@ -2042,7 +2037,6 @@ try {
       }
 
       setBackendReady(true);
-      if (!sid) return;
 
       fetchJsonSafe(`${API_BASE}/api/query`, {
         method: "POST",
@@ -2077,12 +2071,13 @@ try {
         setLastCheckedWallet(savedLastWallet);
       }
     } catch (e) {
-      console.error("Home init failed", e);
+      console.error("home init failed", e);
     }
   }
 
   init();
 }, []);
+
 
   const changeLanguage = (newLang) => {
     localStorage.setItem("language", newLang);
@@ -2094,7 +2089,7 @@ try {
   window.location.href = `/payment?plan=${plan}`;
 };
 
-  const buildResultFromApi = (cleanAddress, data) => {
+  const buildResultFromApi = (cleanAddress, data, paidFlag = isPaid) => {
     console.log("projectDetails:", data.projectDetails);
     const backendProjects = data.projectDetails?.length
   ? data.projectDetails.map((p) => {
@@ -2138,7 +2133,7 @@ const fallbackProjects = projectCatalog.filter(
     )
 );
 
-if (isPaid) {
+if (paidFlag) {
   displayProjects = [
     ...displayProjects,
     ...fallbackProjects.map((item) => ({
@@ -2162,7 +2157,7 @@ if (isPaid) {
   ];
 }
 
-    const freeVisibleCount = isPaid
+    const freeVisibleCount = paidFlag
   ? enrichedProjects.length
   : 4;
 
@@ -2171,11 +2166,11 @@ if (isPaid) {
   const bPredicted = b.claimType === "predicted" ? 1 : 0;
   return aPredicted - bPredicted;
 });
-    const visibleProjects = isPaid
+    const visibleProjects = paidFlag
   ? displayProjects
   : sortedDisplayProjects.slice(0, 4);
   
-    const lockedCount = isPaid
+    const lockedCount = paidFlag
       ? 0
       : Math.max(enrichedProjects.length - visibleProjects.length, 0);
 
@@ -2199,23 +2194,6 @@ if (isPaid) {
   };
 
  const handleQuery = async (addressOverride) => {
-  const today = new Date().toDateString();
-  const savedDate = localStorage.getItem("queryDate");
-  let count = parseInt(localStorage.getItem("queryCount") || "0", 10);
-
-  if (savedDate !== today) {
-  localStorage.setItem("queryDate", today);
-  localStorage.setItem("queryCount", "0");
-  count = 0;
-}
-
-// ✅ 统一在这里判断（关键）
-if (!isPaid && count >= 3) {
-  console.log("limit hit →", { count, isPaid, paymentType });
-  window.location.href = `/payment?plan=${paymentType || "monthly"}`;
-  return;
-}
-
   const cleanAddress = (addressOverride || walletAddress).trim();
 
   if (!isValidEvmAddress(cleanAddress)) {
@@ -2225,6 +2203,45 @@ if (!isPaid && count >= 3) {
 
   if (!sessionId) {
     alert("Session not ready");
+    return;
+  }
+
+  let membershipActive = isPaid;
+
+  try {
+    const membershipData = await fetchJsonSafe(
+      `${API_BASE}/api/membership/${sessionId}?t=${Date.now()}`
+    );
+
+    membershipActive = !!membershipData.active;
+    setIsPaid(membershipActive);
+
+    if (membershipData.endsAt) {
+      setExpiryDate(membershipData.endsAt);
+      localStorage.setItem("expiryDate", membershipData.endsAt);
+    } else {
+      setExpiryDate("");
+      localStorage.removeItem("expiryDate");
+    }
+
+    localStorage.setItem("isPaid", membershipActive ? "true" : "false");
+  } catch (e) {
+    console.error("refresh membership before query failed", e);
+  }
+
+  const today = new Date().toDateString();
+  const savedDate = localStorage.getItem("queryDate");
+  let count = parseInt(localStorage.getItem("queryCount") || "0", 10);
+
+  if (savedDate !== today) {
+    localStorage.setItem("queryDate", today);
+    localStorage.setItem("queryCount", "0");
+    count = 0;
+  }
+
+  if (!membershipActive && count >= 3) {
+    console.log("limit hit →", { count, membershipActive, paymentType });
+    window.location.href = `/payment?plan=${paymentType || "monthly"}`;
     return;
   }
 
@@ -2271,7 +2288,7 @@ if (!isPaid && count >= 3) {
       return;
     }
 
-    if (!isPaid) {
+    if (!membershipActive) {
       count += 1;
       localStorage.setItem("queryCount", String(count));
       setQueryCount(count);
@@ -2281,7 +2298,7 @@ if (!isPaid && count >= 3) {
     localStorage.setItem("lastCheckedWallet", cleanAddress);
     setLastCheckedWallet(cleanAddress);
 
-    const builtResult = buildResultFromApi(cleanAddress, data);
+    const builtResult = buildResultFromApi(cleanAddress, data, membershipActive);
     setResult(builtResult);
     localStorage.setItem("latestQueryResult", JSON.stringify(builtResult));
     setWalletAddress("");
