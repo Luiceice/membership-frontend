@@ -1134,107 +1134,146 @@ function getInAppGuideContent(lang, isWeChat) {
 }
 
 function InAppBrowserGuide({ lang }) {
-  const [open, setOpen] = useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
 
   useEffect(() => {
     const env = detectBrowserEnvironment();
+
+    console.log("🔥 InAppBrowserGuide mounted", env);
+
     if (!env.isInApp) return;
 
-    setOpen(true); // ✅ 关键：让弹窗出现
-  }, []);
+    setVisible(true);
 
-  if (!open) return null;
+    const currentUrl = window.location.href;
 
-  const env = detectBrowserEnvironment();
-  const content = getInAppGuideContent(lang, env.isWeChat);
+    if (env.isTelegram) {
+      try {
+        navigator.clipboard.writeText(currentUrl).then(() => {
+          setCopied(true);
+        }).catch(() => {
+          setCopied(false);
+        });
+      } catch (e) {
+        console.warn("Clipboard failed", e);
+      }
+    }
+  }, [lang]);
+
+  if (!visible) return null;
+
+  const currentUrl = window.location.href;
+
+  const title =
+    lang === "zh"
+      ? "请在系统浏览器中打开"
+      : "Please open in browser";
+
+  const desc =
+    lang === "zh"
+      ? "当前是内置浏览器环境。Telegram/微信内可能无法正常支付或跳转。"
+      : "You are inside an in-app browser. Payment or redirect may not work properly here.";
+
+  const copyText =
+    lang === "zh"
+      ? copied
+        ? "链接已复制"
+        : "复制当前链接"
+      : copied
+      ? "Link copied"
+      : "Copy link";
 
   return (
-    <div style={styles.paywallOverlay}>
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 99999,
+        background: "rgba(0,0,0,0.72)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
+      }}
+    >
       <div
         style={{
-          ...styles.paywallCard,
-          maxWidth: 420,
-          textAlign: "left",
+          width: "100%",
+          maxWidth: "420px",
+          background: "#111",
+          color: "#fff",
+          borderRadius: "18px",
+          padding: "20px",
+          boxShadow: "0 10px 40px rgba(0,0,0,0.35)",
+          border: "1px solid rgba(255,255,255,0.12)",
+          textAlign: "center",
         }}
       >
-        <div style={styles.paywallHead}>
-          <div style={styles.paywallTitle}>⚠️ {content.title}</div>
-          <IconCloseButton title={content.close} onClick={() => setOpen(false)} />
-        </div>
-
-        <div style={{ ...styles.paywallDesc, marginBottom: 14 }}>
-          {content.desc}
+        <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 12 }}>
+          {title}
         </div>
 
         <div
           style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: 14,
-            padding: "14px 14px 10px",
-            marginBottom: 14,
+            fontSize: 14,
+            lineHeight: 1.6,
+            color: "rgba(255,255,255,0.78)",
+            marginBottom: 16,
           }}
         >
-          {content.steps.map((step, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                gap: 10,
-                alignItems: "flex-start",
-                marginBottom: 10,
-                color: "#ece7ee",
-                fontSize: 14,
-                lineHeight: 1.5,
-              }}
-            >
-              <span
-                style={{
-                  minWidth: 22,
-                  height: 22,
-                  borderRadius: 999,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "rgba(207,139,180,0.16)",
-                  border: "1px solid rgba(207,139,180,0.24)",
-                  color: "#edd9e7",
-                  fontWeight: 800,
-                  fontSize: 12,
-                }}
-              >
-                {index + 1}
-              </span>
-              <span>{step}</span>
-            </div>
-          ))}
+          {desc}
         </div>
 
         <div
           style={{
             fontSize: 12,
-            lineHeight: 1.6,
-            color: "rgba(255,255,255,0.72)",
+            lineHeight: 1.5,
+            wordBreak: "break-all",
+            background: "rgba(255,255,255,0.06)",
+            borderRadius: "12px",
+            padding: "10px 12px",
             marginBottom: 14,
-            textAlign: "center",
+            color: "rgba(255,255,255,0.72)",
           }}
         >
-          {content.note}
+          {currentUrl}
         </div>
 
-        <div style={styles.paywallActions}>
-          <PulseButton
-            style={styles.primaryBtn}
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText(window.location.href);
-              } catch (e) {
-                console.error("copy failed", e);
-              }
-            }}
-          >
-            {content.copy}
-          </PulseButton>
+        <button
+          onClick={async () => {
+            try {
+              await navigator.clipboard.writeText(currentUrl);
+              setCopied(true);
+            } catch (e) {
+              console.warn("Manual copy failed", e);
+              setCopied(false);
+            }
+          }}
+          style={{
+            width: "100%",
+            padding: "12px 14px",
+            borderRadius: "12px",
+            border: "none",
+            cursor: "pointer",
+            fontSize: 15,
+            fontWeight: 700,
+            marginBottom: 10,
+          }}
+        >
+          {copyText}
+        </button>
+
+        <div
+          style={{
+            fontSize: 13,
+            color: "rgba(255,255,255,0.65)",
+            lineHeight: 1.6,
+          }}
+        >
+          {lang === "zh"
+            ? "请点击右上角菜单，然后选择“在浏览器打开”"
+            : "Tap the top-right menu and choose Open in Browser"}
         </div>
       </div>
     </div>
