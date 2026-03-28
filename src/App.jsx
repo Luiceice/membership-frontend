@@ -1,31 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-const rabbitStyle = `
-@keyframes rabbitFloatA {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
-}
-
-@keyframes rabbitFloatB {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-4px); }
-}
-`;
-         function formatDate(dateStr) {
+function formatDate(dateStr) {
   if (!dateStr) return "";
-
-  const rabbitStyle = `
-@keyframes rabbitFloatA {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
-}
-
-@keyframes rabbitFloatB {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-4px); }
-}
-`;
-  
 
   const d = new Date(dateStr);
   const y = d.getFullYear();
@@ -1139,6 +1115,64 @@ function createSoundwaveEffect(el, event) {
   }, 760);
 }
 
+
+
+function createCardRippleEffect(el, event) {
+  if (!el) return;
+
+  const rect = el.getBoundingClientRect();
+  const x =
+    typeof event?.clientX === "number"
+      ? event.clientX - rect.left
+      : rect.width / 2;
+  const y =
+    typeof event?.clientY === "number"
+      ? event.clientY - rect.top
+      : rect.height / 2;
+
+  const oldRipples = el.querySelectorAll(".pro-card-ripple");
+  oldRipples.forEach((node) => node.remove());
+
+  const ripple = document.createElement("span");
+  ripple.className = "pro-card-ripple";
+
+  ripple.style.position = "absolute";
+  ripple.style.left = `${x}px`;
+  ripple.style.top = `${y}px`;
+  ripple.style.width = "35px";
+  ripple.style.height = "35px";
+  ripple.style.marginLeft = "-15px";
+  ripple.style.marginTop = "-15px";
+  ripple.style.borderRadius = "999px";
+  ripple.style.pointerEvents = "none";
+  ripple.style.zIndex = "3";
+  ripple.style.background =
+    "radial-gradient(circle, rgba(255,232,244,0.55) 0%, rgba(255,196,226,0.28) 35%, rgba(255,196,226,0.10) 60%, rgba(255,196,226,0) 78%)";
+  ripple.style.boxShadow =
+   "0 0 40px rgba(255,210,232,0.45), 0 0 100px rgba(255,182,220,0.35)";
+  ripple.style.transform = "scale(0.2)";
+  ripple.style.opacity = "0.95";
+
+  el.appendChild(ripple);
+
+  ripple.animate(
+    [
+      { transform: "scale(0.2)", opacity: 0.95 },
+      { transform: "scale(12)", opacity: 0.5, offset: 0.6},
+      { transform: "scale(18)", opacity: 0 }
+    ],
+    {
+      duration: 900,
+      easing: "cubic-bezier(.22,.61,.36,1)",
+      fill: "forwards"
+    }
+  );
+
+  window.setTimeout(() => {
+    ripple.remove();
+  }, 920);
+}
+
 /* ===================== global styles ===================== */
 function useGlobalStyles() {
   useEffect(() => {
@@ -1170,8 +1204,57 @@ function useGlobalStyles() {
     }
   }
 
+      .rabbit-float-a,
+      .rabbit-float-b {
+        transform-box: fill-box;
+        transform-origin: center;
+        will-change: transform;
       }
 
+      .rabbit-float-a {
+        animation: rabbitFloatA 4.35s cubic-bezier(0.37, 0, 0.23, 1) infinite;
+      }
+
+      .rabbit-float-b {
+        animation: rabbitFloatB 5.1s cubic-bezier(0.37, 0, 0.23, 1) infinite;
+        animation-delay: 0.9s;
+      }
+
+      @keyframes rabbitFloatA {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  18% {
+    transform: translate3d(0.8px, -2.0px, 0px);
+  }
+  44% {
+    transform: translate3d(2.0px, -8.2px, 0px);
+  }
+  63% {
+    transform: translate3d(2.0px, -5.5px, 0px);
+  }
+  82% {
+    transform: translate3d(0.55px, -1.8px, 0px);
+  }
+}
+
+@keyframes rabbitFloatB {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  22% {
+    transform: translate3d(-0.75px, -2.5px, 0px);
+  }
+  48% {
+    transform: translate3d(-2.5px, -7.5px, 0px);
+  }
+  68% {
+    transform: translate3d(-1.8px, -5.8px, 0px);
+  }
+  86% {
+    transform: translate3d(-0.3px, -1.5px, 0px);
+  }
+}
       .pulse-btn {
         position: relative;
         overflow: hidden;
@@ -2337,8 +2420,8 @@ function PixelBearPanel() {
   const leftRabbit = useMemo(() => buildRabbitMatrix(42, 1, "pink"), []);
   const rightRabbit = useMemo(() => buildRabbitMatrix(172, 2, "blue"), []);
 
-  const renderRabbit = (rabbit, key) => (
-    <g key={key}>
+  const renderRabbit = (rabbit, key, motionClass) => (
+    <g key={key} className={motionClass}>
       {rabbit.outlineRects.map((rect, index) => (
         <rect
           key={`${key}-o-${index}`}
@@ -2390,8 +2473,8 @@ function PixelBearPanel() {
   return (
     <div className="pixel-bear-panel">
       <svg className="pixel-bear-svg" viewBox="0 0 320 170" aria-hidden="true">
-        {renderRabbit(leftRabbit, "left")}
-        {renderRabbit(rightRabbit, "right")}
+       {renderRabbit(leftRabbit, "left", "rabbit-float-a")}
+{renderRabbit(rightRabbit, "right", "rabbit-float-b")}
       </svg>
     </div>
   );
@@ -3249,15 +3332,21 @@ const handleQuery = async (addressOverride) => {
       {t.freeTip.replace("{count}", String(queryCount))}
     </div>
   ) : (
-    <div style={styles.proCard}>
+    <div
+      style={styles.proCard}
+      onMouseEnter={(e) => createCardRippleEffect(e.currentTarget, e)}
+      onTouchStart={(e) =>
+        createCardRippleEffect(e.currentTarget, e.touches?.[0] || e)
+      }
+    >
       <div style={styles.proEyebrow}>VOIDPULSE BLACK</div>
 
       <div style={styles.memberTitle}>
         {t.memberActive || "PRO Access Enabled"}
       </div>
-<div style={styles.memberMeta}>
-  {t.expiry || "Expiry"}: {formatDate(expiryDate)}
-</div>
+      <div style={styles.memberMeta}>
+        {t.expiry || "Expiry"}: {formatDate(expiryDate)}
+      </div>
     </div>
   )}
 
@@ -3892,7 +3981,9 @@ proCardInner: {
   alignItems: "center",
   background: "linear-gradient(135deg,#151018,#231425 60%,#150f18)",
   border: "1px solid rgba(207,139,180,0.18)",
-  boxShadow: "0 6px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(207,139,180,0.06) inset"
+  position: "relative",
+  overflow: "hidden",
+  boxShadow: "0 6px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(207,139,180,0.06) inset, 0 0 18px rgba(255,182,220,0.08)"
   },
 
   paymentPanelHeader: {
