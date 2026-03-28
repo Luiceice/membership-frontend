@@ -3220,7 +3220,7 @@ if (saved) {
             <span style={styles.labelSmall}>{t.choosePlan}</span>
             <span style={{ ...styles.priceAmountMini, marginLeft: "auto", textAlign: "right" }}>
               {order && (plan === "monthly" || plan === "yearly")
-                ? `${order.amountUsdt} USDT`
+                ? `${Number(order.amountUsdt).toFixed(3)} USDT`
                 : "--"}
             </span>
           </div>
