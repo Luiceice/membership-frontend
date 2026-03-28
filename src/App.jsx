@@ -3010,6 +3010,52 @@ function PaymentPage({ lang, setLang }) {
 
   return (
     <div style={styles.page}>
+      <div
+  style={{
+    marginBottom: 14,
+    padding: "12px 14px",
+    borderRadius: 14,
+    background: "rgba(255,255,255,0.06)",
+    border: "1px solid rgba(255,255,255,0.1)",
+    color: "#fff",
+  }}
+>
+  <div
+    style={{
+      fontSize: 13,
+      lineHeight: 1.6,
+      color: "rgba(255,255,255,0.82)",
+      marginBottom: 10,
+      textAlign: "center",
+    }}
+  >
+    {["zh", "hk"].includes(lang)
+      ? "若你在 Telegram / 微信 / WhatsApp 内打开，请点右上角菜单并选择“在浏览器打开”"
+      : "If opened inside Telegram / WeChat / WhatsApp, tap the top-right menu and choose Open in Browser"}
+  </div>
+
+  <button
+    onClick={async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert(["zh", "hk"].includes(lang) ? "链接已复制" : "Link copied");
+      } catch (e) {
+        alert(["zh", "hk"].includes(lang) ? "复制失败，请手动复制" : "Copy failed, please copy manually");
+      }
+    }}
+    style={{
+      width: "100%",
+      padding: "12px 14px",
+      borderRadius: 10,
+      border: "none",
+      cursor: "pointer",
+      fontSize: 14,
+      fontWeight: 700,
+    }}
+  >
+    {["zh", "hk"].includes(lang) ? "复制当前链接" : "Copy current link"}
+  </button>
+</div>
       <div className="vp-grid" />
 
       <div style={styles.container}>
