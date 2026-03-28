@@ -3015,10 +3015,20 @@ if (saved) {
   const parsed = JSON.parse(saved);
 
   if (parsed?.orderId) {
-    setOrder(parsed);
-    setStatus(t.payReady);
+  const fresh = await fetchJsonSafe(
+    `${API_BASE}/api/orders/${parsed.orderId}`
+  );
+
+  if (fresh?.status === "paid") {
+    setStatus(t.payPaid);
+    window.location.replace("/");
     return;
   }
+
+  setOrder(fresh);
+  setStatus(t.payReady);
+  return;
+}
 }
 
         let membershipData = { active: false, endsAt: null };
