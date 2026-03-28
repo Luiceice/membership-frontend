@@ -1135,63 +1135,19 @@ function getInAppGuideContent(lang, isWeChat) {
 }
 
 function InAppBrowserGuide({ lang }) {
-  const [visible, setVisible] = React.useState(false);
-  const [copied, setCopied] = React.useState(false);
+  const env = detectBrowserEnvironment();
 
-  useEffect(() => {
-    const env = detectBrowserEnvironment();
-
-    console.log("🔥 InAppBrowserGuide mounted", env);
-
-    if (!env.isInApp) return;
-
-    setVisible(true);
-
-    const currentUrl = window.location.href;
-
-    if (env.isTelegram) {
-      try {
-        navigator.clipboard.writeText(currentUrl).then(() => {
-          setCopied(true);
-        }).catch(() => {
-          setCopied(false);
-        });
-      } catch (e) {
-        console.warn("Clipboard failed", e);
-      }
-    }
-  }, [lang]);
-
-  if (!visible) return null;
+  if (!env.isInApp) return null;
 
   const currentUrl = window.location.href;
-
-  const title =
-    lang === "zh"
-      ? "请在系统浏览器中打开"
-      : "Please open in browser";
-
-  const desc =
-    lang === "zh"
-      ? "当前是内置浏览器环境。Telegram/微信内可能无法正常支付或跳转。"
-      : "You are inside an in-app browser. Payment or redirect may not work properly here.";
-
-  const copyText =
-    lang === "zh"
-      ? copied
-        ? "链接已复制"
-        : "复制当前链接"
-      : copied
-      ? "Link copied"
-      : "Copy link";
 
   return (
     <div
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 99999,
-        background: "rgba(0,0,0,0.72)",
+        zIndex: 999999,
+        background: "rgba(0,0,0,0.82)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -1202,39 +1158,41 @@ function InAppBrowserGuide({ lang }) {
         style={{
           width: "100%",
           maxWidth: "420px",
-          background: "#111",
-          color: "#fff",
-          borderRadius: "18px",
+          background: "#111111",
+          color: "#ffffff",
+          borderRadius: "16px",
           padding: "20px",
-          boxShadow: "0 10px 40px rgba(0,0,0,0.35)",
           border: "1px solid rgba(255,255,255,0.12)",
+          boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
           textAlign: "center",
         }}
       >
-        <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 12 }}>
-          {title}
+        <div style={{ fontSize: "20px", fontWeight: 700, marginBottom: "12px" }}>
+          {lang === "zh" ? "请在系统浏览器打开" : "Open in system browser"}
         </div>
 
         <div
           style={{
-            fontSize: 14,
+            fontSize: "14px",
             lineHeight: 1.6,
             color: "rgba(255,255,255,0.78)",
-            marginBottom: 16,
+            marginBottom: "14px",
           }}
         >
-          {desc}
+          {lang === "zh"
+            ? "当前是内置浏览器环境，支付或跳转可能不正常。"
+            : "You are inside an in-app browser. Payment or redirect may not work properly."}
         </div>
 
         <div
           style={{
-            fontSize: 12,
+            fontSize: "12px",
             lineHeight: 1.5,
             wordBreak: "break-all",
             background: "rgba(255,255,255,0.06)",
-            borderRadius: "12px",
+            borderRadius: "10px",
             padding: "10px 12px",
-            marginBottom: 14,
+            marginBottom: "12px",
             color: "rgba(255,255,255,0.72)",
           }}
         >
@@ -1245,36 +1203,35 @@ function InAppBrowserGuide({ lang }) {
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(currentUrl);
-              setCopied(true);
+              alert(lang === "zh" ? "链接已复制" : "Link copied");
             } catch (e) {
-              console.warn("Manual copy failed", e);
-              setCopied(false);
+              alert(lang === "zh" ? "复制失败，请手动复制" : "Copy failed, please copy manually");
             }
           }}
           style={{
             width: "100%",
             padding: "12px 14px",
-            borderRadius: "12px",
+            borderRadius: "10px",
             border: "none",
             cursor: "pointer",
-            fontSize: 15,
+            fontSize: "15px",
             fontWeight: 700,
-            marginBottom: 10,
+            marginBottom: "10px",
           }}
         >
-          {copyText}
+          {lang === "zh" ? "复制当前链接" : "Copy current link"}
         </button>
 
         <div
           style={{
-            fontSize: 13,
-            color: "rgba(255,255,255,0.65)",
+            fontSize: "13px",
+            color: "rgba(255,255,255,0.66)",
             lineHeight: 1.6,
           }}
         >
           {lang === "zh"
-            ? "请点击右上角菜单，然后选择“在浏览器打开”"
-            : "Tap the top-right menu and choose Open in Browser"}
+            ? "请点右上角菜单，再选择“在浏览器打开”"
+            : "Tap the top-right menu, then choose Open in Browser"}
         </div>
       </div>
     </div>
