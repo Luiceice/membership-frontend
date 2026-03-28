@@ -4070,14 +4070,12 @@ export default function App() {
 
   const [lang, setLang] = useState(getStoredLang());
 
-  return (
+ return (
   <>
     <InAppBrowserGuide lang={lang} />
-    {window.location.pathname === "/payment" ? (
-      <PaymentPage lang={lang} setLang={setLang} />
-    ) : (
-      <HomePage lang={lang} setLang={setLang} />
-    )}
+    {window.location.pathname === "/payment"
+      ? <PaymentPage lang={lang} setLang={setLang} />
+      : <HomePage lang={lang} setLang={setLang} />}
   </>
 );
 }
