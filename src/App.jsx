@@ -3009,7 +3009,7 @@ function PaymentPage({ lang, setLang }) {
 
     async function initPayment() {
       try {
-        localStorage.removeItem("latestOrder");
+       
 
         let membershipData = { active: false, endsAt: null };
 
