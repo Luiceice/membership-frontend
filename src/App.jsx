@@ -4032,15 +4032,15 @@ export default function App() {
   const [lang, setLang] = useState(getStoredLang());
 
   return (
-    <>
-      {window.location.pathname === "/payment" ? (
-        <PaymentPage lang={lang} setLang={setLang} />
-      ) : (
-        <HomePage lang={lang} setLang={setLang} />
-      )}
-      <InAppBrowserGuide lang={lang} />
-    </>
-  );
+  <>
+    <InAppBrowserGuide lang={lang} />
+    {window.location.pathname === "/payment" ? (
+      <PaymentPage lang={lang} setLang={setLang} />
+    ) : (
+      <HomePage lang={lang} setLang={setLang} />
+    )}
+  </>
+);
 }
 
 /* ===================== styles ===================== */
