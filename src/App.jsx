@@ -4027,104 +4027,10 @@ export default function App() {
   useGlobalStyles();
 
   const [lang, setLang] = useState(getStoredLang());
-return (
+
+ return (
   <>
-    {showInAppGuide && (
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 999999,
-          background: "rgba(0,0,0,0.82)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "20px",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "420px",
-            background: "#111111",
-            color: "#ffffff",
-            borderRadius: "16px",
-            padding: "20px",
-            border: "1px solid rgba(255,255,255,0.12)",
-            boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
-            textAlign: "center",
-          }}
-        >
-          <div style={{ fontSize: "20px", fontWeight: 700, marginBottom: "12px" }}>
-            {lang === "zh" ? "请在系统浏览器打开" : "Open in system browser"}
-          </div>
-
-          <div
-            style={{
-              fontSize: "14px",
-              lineHeight: 1.6,
-              color: "rgba(255,255,255,0.78)",
-              marginBottom: "14px",
-            }}
-          >
-            {lang === "zh"
-              ? "当前是内置浏览器环境，支付或跳转可能不正常。"
-              : "You are inside an in-app browser. Payment or redirect may not work properly."}
-          </div>
-
-          <div
-            style={{
-              fontSize: "12px",
-              lineHeight: 1.5,
-              wordBreak: "break-all",
-              background: "rgba(255,255,255,0.06)",
-              borderRadius: "10px",
-              padding: "10px 12px",
-              marginBottom: "12px",
-              color: "rgba(255,255,255,0.72)",
-            }}
-          >
-            {window.location.href}
-          </div>
-
-          <button
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText(window.location.href);
-                alert(lang === "zh" ? "链接已复制" : "Link copied");
-              } catch (e) {
-                alert(lang === "zh" ? "复制失败，请手动复制" : "Copy failed, please copy manually");
-              }
-            }}
-            style={{
-              width: "100%",
-              padding: "12px 14px",
-              borderRadius: "10px",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "15px",
-              fontWeight: 700,
-              marginBottom: "10px",
-            }}
-          >
-            {lang === "zh" ? "复制当前链接" : "Copy current link"}
-          </button>
-
-          <div
-            style={{
-              fontSize: "13px",
-              color: "rgba(255,255,255,0.66)",
-              lineHeight: 1.6,
-            }}
-          >
-            {lang === "zh"
-              ? "请点右上角菜单，再选择“在浏览器打开”"
-              : "Tap the top-right menu, then choose Open in Browser"}
-          </div>
-        </div>
-      </div>
-    )}
-
+    <InAppBrowserGuide lang={lang} />
     {window.location.pathname === "/payment"
       ? <PaymentPage lang={lang} setLang={setLang} />
       : <HomePage lang={lang} setLang={setLang} />}
