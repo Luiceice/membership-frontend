@@ -127,13 +127,6 @@ const translations = {
     unlockContact: "Contact support to unlock full airdrop access",
     unlockedAll: "All airdrop opportunities unlocked",
     exactPayHint: "Por favor, pague exactamente la cantidad mostrada, de lo contrario el sistema puede no reconocer el pago",
-    openInBrowserTitle: "Open in Browser",
-    openInBrowserDesc: "For stable PRO access and payment status sync, please open this page in your browser.",
-    openInBrowserBtn: "Open in Browser",
-    copyLinkBtn: "Copy Link",
-    continueHereBtn: "Continue Here",
-    linkCopied: "Link copied",
-    browserOpenHint: "If the browser does not open automatically, tap Copy Link and paste it into Chrome or Safari.",
   },
 
   hk: {
@@ -244,13 +237,6 @@ const translations = {
     unlockContact: "聯繫客服解鎖完整空投路徑",
     unlockedAll: "已解鎖所有空投機會",
     exactPayHint: "請嚴格按照顯示金額支付，否則系統可能無法自動識別訂單",
-    openInBrowserTitle: "請用瀏覽器打開",
-    openInBrowserDesc: "為了保持會員狀態與支付同步更穩定，請盡量使用瀏覽器打開本頁。",
-    openInBrowserBtn: "在瀏覽器打開",
-    copyLinkBtn: "複製連結",
-    continueHereBtn: "仍然在此使用",
-    linkCopied: "連結已複製",
-    browserOpenHint: "如果沒有自動跳轉瀏覽器，請點擊複製連結後貼到 Chrome 或 Safari 打開。",
   },
 
   jp: {
@@ -361,13 +347,6 @@ const translations = {
     unlockContact: "サポートに連絡してすべてのエアドロップを解放",
     unlockedAll: "すべてのエアドロップ機会が解放されました",
     exactPayHint: "表示された金額を正確にお支払いください。そうでない場合、システムが支払いを認識できない可能性があります",
-    openInBrowserTitle: "ブラウザで開いてください",
-    openInBrowserDesc: "PROアクセスと支払い同期を安定させるため、このページはブラウザで開いてください。",
-    openInBrowserBtn: "ブラウザで開く",
-    copyLinkBtn: "リンクをコピー",
-    continueHereBtn: "このまま続ける",
-    linkCopied: "リンクをコピーしました",
-    browserOpenHint: "自動でブラウザが開かない場合は、リンクをコピーして Chrome または Safari に貼り付けてください。",
   },
 
   es: {
@@ -478,13 +457,6 @@ const translations = {
     unlockContact: "Contactar soporte para desbloquear acceso completo a airdrop",
     unlockedAll: "Todas las oportunidades de airdrop desbloqueadas",
     exactPayHint: "Por favor, pague exactamente la cantidad mostrada, de lo contrario el sistema puede no reconocer el pago",
-    openInBrowserTitle: "Abrir en el navegador",
-    openInBrowserDesc: "Para un acceso PRO y una sincronización de pago más estables, abre esta página en tu navegador.",
-    openInBrowserBtn: "Abrir en el navegador",
-    copyLinkBtn: "Copiar enlace",
-    continueHereBtn: "Seguir aquí",
-    linkCopied: "Enlace copiado",
-    browserOpenHint: "Si el navegador no se abre automáticamente, pulsa Copiar enlace y pégalo en Chrome o Safari.",
   },
 
   it: {
@@ -595,13 +567,6 @@ const translations = {
     unlockContact: "Contatta il supporto per sbloccare l'accesso completo agli airdrop",
     unlockedAll: "Tutte le opportunità di airdrop sbloccate",
     exactPayHint: "Si prega di pagare esattamente l'importo indicato, altrimenti il sistema potrebbe non riconoscere il pagamento",
-    openInBrowserTitle: "Apri nel browser",
-    openInBrowserDesc: "Per un accesso PRO e una sincronizzazione del pagamento più stabili, apri questa pagina nel browser.",
-    openInBrowserBtn: "Apri nel browser",
-    copyLinkBtn: "Copia link",
-    continueHereBtn: "Continua qui",
-    linkCopied: "Link copiato",
-    browserOpenHint: "Se il browser non si apre automaticamente, tocca Copia link e incollalo in Chrome o Safari.",
   },
 
   kr: {
@@ -711,13 +676,6 @@ const translations = {
     potentialTitle: "잠재적 에어드롭 기회",
     claimableTitle: "청구 가능한 에어드롭 감지",
     exactPayHint: "표시된 금액을 정확히 결제해주세요. 그렇지 않으면 시스템이 결제를 인식하지 못할 수 있습니다",
-    openInBrowserTitle: "브라우저에서 열어주세요",
-    openInBrowserDesc: "PRO 접근과 결제 동기화를 더 안정적으로 유지하려면 이 페이지를 브라우저에서 열어주세요.",
-    openInBrowserBtn: "브라우저에서 열기",
-    copyLinkBtn: "링크 복사",
-    continueHereBtn: "여기서 계속",
-    linkCopied: "링크가 복사되었습니다",
-    browserOpenHint: "브라우저가 자동으로 열리지 않으면 링크를 복사해서 Chrome 또는 Safari에 붙여넣어 주세요.",
     unlockedAll: "모든 에어드랍 기회가 해제되었습니다",
   },
 
@@ -830,13 +788,6 @@ const translations = {
     unlockContact: "Свяжитесь с поддержкой, чтобы открыть полный доступ к аирдропам",
     unlockedAll: "Все возможности аирдропа разблокированы",
     exactPayHint: "Пожалуйста, оплатите точную указанную сумму, иначе система может не распознать платеж",
-    openInBrowserTitle: "Откройте в браузере",
-    openInBrowserDesc: "Чтобы PRO-доступ и синхронизация оплаты работали стабильнее, откройте эту страницу в браузере.",
-    openInBrowserBtn: "Открыть в браузере",
-    copyLinkBtn: "Скопировать ссылку",
-    continueHereBtn: "Продолжить здесь",
-    linkCopied: "Ссылка скопирована",
-    browserOpenHint: "Если браузер не открылся автоматически, нажмите Скопировать ссылку и вставьте её в Chrome или Safari.",
   },
 };
 
@@ -1011,119 +962,263 @@ function getStoredLang() {
   return localStorage.getItem("language") || defaultLang;
 }
 
-function getDeviceId() {
-  const key = "vp_device_id_v1";
-  let id = localStorage.getItem(key);
 
-  if (!id) {
-    const seed = [
+function getOrCreateDeviceId() {
+  try {
+    const existing = localStorage.getItem("vp_device_id");
+    if (existing) return existing;
+
+    const raw = [
       navigator.userAgent || "",
       navigator.language || "",
-      window.screen?.width || "",
-      window.screen?.height || "",
-      new Date().getTimezoneOffset(),
+      navigator.platform || "",
+      String(window.screen?.width || ""),
+      "x",
+      String(window.screen?.height || ""),
+      String(new Date().getTimezoneOffset()),
     ].join("|");
 
     let hash = 0;
-    for (let i = 0; i < seed.length; i += 1) {
-      hash = (hash << 5) - hash + seed.charCodeAt(i);
+    for (let i = 0; i < raw.length; i += 1) {
+      hash = (hash << 5) - hash + raw.charCodeAt(i);
       hash |= 0;
     }
 
-    id = `vp-${Math.abs(hash)}-${String(seed.length)}`;
-    localStorage.setItem(key, id);
+    const created = `vp_${Math.abs(hash)}_${raw.length}`;
+    localStorage.setItem("vp_device_id", created);
+    return created;
+  } catch {
+    return "vp_fallback_device";
   }
-
-  return id;
 }
 
-function detectInAppBrowser() {
-  const ua = (navigator.userAgent || "").toLowerCase();
+function detectBrowserEnvironment() {
+  const ua = navigator.userAgent || "";
+  const referrer = document.referrer || "";
 
-  if (/micromessenger/.test(ua)) return { isInApp: true, app: "wechat" };
-  if (/telegram/.test(ua)) return { isInApp: true, app: "telegram" };
-  if (/whatsapp/.test(ua)) return { isInApp: true, app: "whatsapp" };
+  const isWeChat = /MicroMessenger/i.test(ua);
+  const isTelegram = /Telegram|TgIAB|TgWebView|tgandroid|tgios/i.test(ua);
+  const isWhatsApp = /WhatsApp/i.test(ua);
 
-  return { isInApp: false, app: "browser" };
-}
+  const looksLikeGenericWebView =
+    /\bwv\b/i.test(ua) ||
+    /; wv\)/i.test(ua) ||
+    /WebView/i.test(ua) ||
+    /FBAN|FBAV|FB_IAB|Instagram|Line\//i.test(ua);
 
-function getInAppGuide(lang) {
-  const env = detectInAppBrowser();
-  const isZh = lang === "hk";
+  const cameFromMessengerApp =
+    /t\.me|telegram|whatsapp|wechat|weixin|instagram\.com|l\.facebook\.com|messenger/i.test(
+      referrer
+    );
 
-  if (env.app === "telegram") {
-    return {
-      app: "telegram",
-      emoji: "✈️",
-      title: isZh ? "請用瀏覽器打開" : "Open in Browser",
-      desc: isZh
-        ? "你目前在 Telegram 內打開。為了支付與會員狀態更穩定，請用系統瀏覽器打開。"
-        : "You are viewing this page inside Telegram. For more stable payment and PRO access, open it in your browser.",
-      steps: isZh
-        ? ["點右上角 ⋮ 或分享按鈕", "選擇「在瀏覽器打開」", "若找不到，先複製連結再貼到 Chrome / Safari"]
-        : ["Tap the top-right menu ⋮ or share button", "Choose Open in Browser", "If you cannot find it, copy the link and paste it into Chrome or Safari"],
-      menuLabel: isZh ? "右上角 ⋮" : "Top-right ⋮",
-      actionLabel: isZh ? "在瀏覽器打開" : "Open in Browser",
-    };
-  }
-
-  if (env.app === "wechat") {
-    return {
-      app: "wechat",
-      emoji: "💬",
-      title: isZh ? "請用瀏覽器打開" : "Open in Browser",
-      desc: isZh
-        ? "你目前在微信內打開。為了支付與會員狀態更穩定，請切換到系統瀏覽器。"
-        : "You are viewing this page inside WeChat. For more stable payment and PRO access, open it in your browser.",
-      steps: isZh
-        ? ["點右上角 ⋯", "選擇「在瀏覽器打開」", "若沒有此選項，先複製連結再貼到 Chrome / Safari"]
-        : ["Tap the top-right menu ⋯", "Choose Open in Browser", "If the option is missing, copy the link and paste it into Chrome or Safari"],
-      menuLabel: isZh ? "右上角 ⋯" : "Top-right ⋯",
-      actionLabel: isZh ? "在瀏覽器打開" : "Open in Browser",
-    };
-  }
-
-  if (env.app === "whatsapp") {
-    return {
-      app: "whatsapp",
-      emoji: "🟢",
-      title: isZh ? "請用瀏覽器打開" : "Open in Browser",
-      desc: isZh
-        ? "你目前在 WhatsApp 內打開。為了支付與會員狀態更穩定，建議切換到系統瀏覽器。"
-        : "You are viewing this page inside WhatsApp. For more stable payment and PRO access, open it in your browser.",
-      steps: isZh
-        ? ["點右上角 ⋮", "選擇「在瀏覽器打開」", "若沒有跳轉，先複製連結再貼到 Chrome / Safari"]
-        : ["Tap the top-right menu ⋮", "Choose Open in Browser", "If it does not open, copy the link and paste it into Chrome or Safari"],
-      menuLabel: isZh ? "右上角 ⋮" : "Top-right ⋮",
-      actionLabel: isZh ? "在瀏覽器打開" : "Open in Browser",
-    };
-  }
+  const isInApp = isWeChat || isTelegram || isWhatsApp || looksLikeGenericWebView || cameFromMessengerApp;
 
   return {
-    app: "browser",
-    emoji: "🌐",
-    title: isZh ? "請用瀏覽器打開" : "Open in Browser",
-    desc: isZh
-      ? "為了支付與會員狀態更穩定，建議在系統瀏覽器中使用。"
-      : "For more stable payment and PRO access, please use this page in your browser.",
-    steps: isZh
-      ? ["點複製連結", "打開 Chrome / Safari", "貼上網址後繼續使用"]
-      : ["Tap Copy Link", "Open Chrome or Safari", "Paste the URL and continue there"],
-    menuLabel: isZh ? "複製連結" : "Copy Link",
-    actionLabel: isZh ? "瀏覽器" : "Browser",
+    isInApp,
+    isWeChat,
   };
 }
 
-async function copyCurrentLink() {
-  const currentUrl = window.location.href;
+function getBrowserEnvironmentHint(lang) {
+  const map = {
+    gb: "⚠️ For stable PRO access, please use the same device and browser environment",
+    hk: "⚠️ 為確保會員狀態穩定，請使用同一設備與同一瀏覽器環境打開",
+    ru: "⚠️ Для стабильного доступа к PRO используйте ту же самую модель устройства и тот же браузер",
+    jp: "⚠️ PRO を安定して利用するため、同じ端末と同じブラウザ環境で開いてください",
+    es: "⚠️ Para mantener estable el acceso PRO, abre esta página en el mismo dispositivo y entorno de navegador",
+    it: "⚠️ Per mantenere stabile l’accesso PRO, apri questa pagina sullo stesso dispositivo e nello stesso ambiente browser",
+    kr: "⚠️ PRO 상태를 안정적으로 유지하려면 동일한 기기와 동일한 브라우저 환경에서 열어주세요",
+  };
+  return map[lang] || map.gb;
+}
 
-  try {
-    await navigator.clipboard.writeText(currentUrl);
-    return true;
-  } catch (e) {
-    console.error("copy link failed", e);
-    return false;
-  }
+function getInAppGuideContent(lang, isWeChat) {
+  const common = {
+    gb: {
+      title: "Open in Browser",
+      desc: "For stable PRO access, please open this page in your browser.",
+      steps: isWeChat
+        ? ['Tap the top-right menu "···"', 'Choose "Open in Browser"']
+        : ['Tap the top menu of this app', 'Choose "Open in Browser"'],
+      copy: "Copy Link",
+      close: "Close",
+      note: "Please use the same device and browser environment after payment.",
+    },
+    hk: {
+      title: "請在瀏覽器中打開",
+      desc: "為確保會員狀態穩定，請使用瀏覽器打開此頁面。",
+      steps: isWeChat
+        ? ['點擊右上角「···」', '選擇「在瀏覽器打開」']
+        : ['點擊當前 App 右上角菜單', '選擇「在瀏覽器打開」'],
+      copy: "複製鏈接",
+      close: "關閉",
+      note: "支付後請盡量保持在同一設備與同一瀏覽器環境中使用。",
+    },
+    ru: {
+      title: "Откройте в браузере",
+      desc: "Чтобы PRO работал стабильно, откройте эту страницу в браузере.",
+      steps: isWeChat
+        ? ['Нажмите меню "···" в правом верхнем углу', 'Выберите "Открыть в браузере"']
+        : ['Откройте верхнее меню этого приложения', 'Выберите "Открыть в браузере"'],
+      copy: "Скопировать ссылку",
+      close: "Закрыть",
+      note: "После оплаты используйте ту же самую среду браузера на этом устройстве.",
+    },
+    jp: {
+      title: "ブラウザで開いてください",
+      desc: "PRO を安定して利用するため、このページをブラウザで開いてください。",
+      steps: isWeChat
+        ? ['右上の「···」をタップ', '「ブラウザで開く」を選択']
+        : ['このアプリの上部メニューをタップ', '「ブラウザで開く」を選択'],
+      copy: "リンクをコピー",
+      close: "閉じる",
+      note: "支払い後も同じ端末と同じブラウザ環境でご利用ください。",
+    },
+    es: {
+      title: "Abrir en el navegador",
+      desc: "Para mantener estable el acceso PRO, abre esta página en tu navegador.",
+      steps: isWeChat
+        ? ['Toca el menú "···" arriba a la derecha', 'Elige "Abrir en el navegador"']
+        : ['Toca el menú superior de esta app', 'Elige "Abrir en el navegador"'],
+      copy: "Copiar enlace",
+      close: "Cerrar",
+      note: "Después del pago, usa el mismo dispositivo y el mismo entorno de navegador.",
+    },
+    it: {
+      title: "Apri nel browser",
+      desc: "Per mantenere stabile l’accesso PRO, apri questa pagina nel browser.",
+      steps: isWeChat
+        ? ['Tocca il menu "···" in alto a destra', 'Scegli "Apri nel browser"']
+        : ['Tocca il menu superiore di questa app', 'Scegli "Apri nel browser"'],
+      copy: "Copia link",
+      close: "Chiudi",
+      note: "Dopo il pagamento, usa lo stesso dispositivo e lo stesso ambiente browser.",
+    },
+    kr: {
+      title: "브라우저에서 열기",
+      desc: "PRO 상태를 안정적으로 유지하려면 이 페이지를 브라우저에서 열어주세요.",
+      steps: isWeChat
+        ? ['오른쪽 상단의 "···" 메뉴를 누르세요', '"브라우저에서 열기"를 선택하세요']
+        : ['현재 앱의 상단 메뉴를 누르세요', '"브라우저에서 열기"를 선택하세요'],
+      copy: "링크 복사",
+      close: "닫기",
+      note: "결제 후에도 동일한 기기와 동일한 브라우저 환경에서 사용해주세요.",
+    },
+  };
+
+  return common[lang] || common.gb;
+}
+
+function InAppBrowserGuide({ lang }) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const env = detectBrowserEnvironment();
+    if (!env.isInApp) return;
+
+    try {
+      const onceKey = `vp_inapp_notice_${window.location.pathname}`;
+      if (sessionStorage.getItem(onceKey) === "1") return;
+      sessionStorage.setItem(onceKey, "1");
+    } catch {}
+
+    setOpen(true);
+  }, []);
+
+  if (!open) return null;
+
+  const env = detectBrowserEnvironment();
+  const content = getInAppGuideContent(lang, env.isWeChat);
+
+  return (
+    <div style={styles.paywallOverlay}>
+      <div
+        style={{
+          ...styles.paywallCard,
+          maxWidth: 420,
+          textAlign: "left",
+        }}
+      >
+        <div style={styles.paywallHead}>
+          <div style={styles.paywallTitle}>⚠️ {content.title}</div>
+          <IconCloseButton title={content.close} onClick={() => setOpen(false)} />
+        </div>
+
+        <div style={{ ...styles.paywallDesc, marginBottom: 14 }}>{content.desc}</div>
+
+        <div
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 14,
+            padding: "14px 14px 10px",
+            marginBottom: 14,
+          }}
+        >
+          {content.steps.map((step, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                gap: 10,
+                alignItems: "flex-start",
+                marginBottom: 10,
+                color: "#ece7ee",
+                fontSize: 14,
+                lineHeight: 1.5,
+              }}
+            >
+              <span
+                style={{
+                  minWidth: 22,
+                  height: 22,
+                  borderRadius: 999,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "rgba(207,139,180,0.16)",
+                  border: "1px solid rgba(207,139,180,0.24)",
+                  color: "#edd9e7",
+                  fontWeight: 800,
+                  fontSize: 12,
+                }}
+              >
+                {index + 1}
+              </span>
+              <span>{step}</span>
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            fontSize: 12,
+            lineHeight: 1.6,
+            color: "rgba(255,255,255,0.72)",
+            marginBottom: 14,
+            textAlign: "center",
+          }}
+        >
+          {content.note}
+        </div>
+
+        <div style={styles.paywallActions}>
+          <PulseButton
+            style={styles.primaryBtn}
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(window.location.href);
+              } catch (e) {
+                console.error("copy failed", e);
+              }
+            }}
+          >
+            {content.copy}
+          </PulseButton>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function getSourceBadge(sourceType, t) {
@@ -2700,63 +2795,6 @@ function IconCloseButton({ onClick, title }) {
   );
 }
 
-function InAppBrowserPrompt({ lang, onClose }) {
-  const [copyDone, setCopyDone] = useState(false);
-  const guide = getInAppGuide(lang);
-
-  return (
-    <div style={styles.inAppOverlay}>
-      <div style={styles.inAppModal}>
-        <button onClick={onClose} style={styles.inAppCloseBtn} aria-label="Close">
-          ✕
-        </button>
-
-        <div style={styles.inAppIcon}>{guide.emoji}</div>
-        <div style={styles.inAppTitle}>{guide.title}</div>
-        <div style={styles.inAppDesc}>{guide.desc}</div>
-
-        <div style={styles.inAppDiagramWrap}>
-          <div style={styles.inAppPhoneFrame}>
-            <div style={styles.inAppPhoneTopBar}>
-              <span style={styles.inAppDot} />
-              <span style={styles.inAppDot} />
-              <span style={styles.inAppDot} />
-            </div>
-            <div style={styles.inAppPhoneBody}>
-              <div style={styles.inAppFakeUrlBar}>https://voidpulse.ai</div>
-              <div style={styles.inAppMenuHotspot}>{guide.menuLabel}</div>
-              <div style={styles.inAppArrow}>↘</div>
-              <div style={styles.inAppActionCard}>{guide.actionLabel}</div>
-            </div>
-          </div>
-        </div>
-
-        <div style={styles.inAppSteps}>
-          {guide.steps.map((step, index) => (
-            <div key={index} style={styles.inAppStepRow}>
-              <div style={styles.inAppStepNo}>{index + 1}</div>
-              <div style={styles.inAppStepText}>{step}</div>
-            </div>
-          ))}
-        </div>
-
-        <PulseButton
-          onClick={async () => {
-            const ok = await copyCurrentLink();
-            if (ok) {
-              setCopyDone(true);
-              window.setTimeout(() => setCopyDone(false), 2200);
-            }
-          }}
-          style={styles.primaryBtn}
-        >
-          {copyDone ? tFor(lang).linkCopied : tFor(lang).copyLinkBtn}
-        </PulseButton>
-      </div>
-    </div>
-  );
-}
-
 /* ===================== payment page ===================== */
 function PaymentPage({ lang, setLang }) {
   const t = tFor(lang);
@@ -2779,7 +2817,6 @@ function PaymentPage({ lang, setLang }) {
   const [order, setOrder] = useState(null);
   const [status, setStatus] = useState(t.payWaiting);
   const [alreadyPaid, setAlreadyPaid] = useState(false);
-  const [showBrowserPrompt, setShowBrowserPrompt] = useState(false);
 
   const plan = useMemo(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -2792,26 +2829,15 @@ function PaymentPage({ lang, setLang }) {
   }, [t.payWaiting]);
 
   useEffect(() => {
-    const env = detectInAppBrowser();
-    const key = `vp_hide_browser_prompt_${env.app}`;
-
-    if (env.isInApp && !sessionStorage.getItem(key)) {
-      setShowBrowserPrompt(true);
-    }
-  }, []);
-
-  useEffect(() => {
     async function initSession() {
       try {
         let sid = localStorage.getItem("sessionId");
 
         if (!sid) {
           const data = await fetchJsonSafe(`${API_BASE}/api/session`, {
-            method: "POST",
-            headers: {
-              "x-device-id": getDeviceId(),
-            },
-          });
+  method: "POST",
+  headers: { "x-device-id": getOrCreateDeviceId() },
+});
           sid = data.sessionId;
           localStorage.setItem("sessionId", sid);
         }
@@ -2902,7 +2928,11 @@ function PaymentPage({ lang, setLang }) {
         setOrder(merged);
         localStorage.setItem("latestOrder", JSON.stringify(merged));
 
-        if (data.status === "paid" || data?.membership?.active) {
+        if (
+          data.status === "paid" &&
+          data.txHash &&
+          String(data.txHash).trim() !== ""
+        ) {
           const orderMembershipActive = !!data?.membership?.active;
           const orderMembershipEndsAt = data?.membership?.expiry || null;
 
@@ -2938,8 +2968,7 @@ function PaymentPage({ lang, setLang }) {
               localStorage.removeItem("expiryDate");
             }
 
-            setStatus(t.payPaid);
-            window.location.href = `${window.location.origin}/`;
+            window.location.replace(`${window.location.origin}/`);
           } else {
             setStatus(t.paymentCheckFailed);
           }
@@ -2965,16 +2994,6 @@ function PaymentPage({ lang, setLang }) {
   return (
     <div style={styles.page}>
       <div className="vp-grid" />
-      {showBrowserPrompt && (
-        <InAppBrowserPrompt
-          lang={lang}
-          onClose={() => {
-            const env = detectInAppBrowser();
-            sessionStorage.setItem(`vp_hide_browser_prompt_${env.app}`, "1");
-            setShowBrowserPrompt(false);
-          }}
-        />
-      )}
 
       <div style={styles.container}>
         <header style={styles.header}>
@@ -3001,6 +3020,19 @@ function PaymentPage({ lang, setLang }) {
           <div>{t.paymentTrust1}</div>
           <div>{t.paymentTrust2}</div>
           <div>{t.paymentTrust3}</div>
+        </div>
+
+        <div
+          style={{
+            marginTop: 8,
+            marginBottom: 14,
+            fontSize: 12,
+            lineHeight: 1.55,
+            textAlign: "center",
+            color: "rgba(255,255,255,0.74)",
+          }}
+        >
+          {getBrowserEnvironmentHint(lang)}
         </div>
 
         <div style={styles.card}>
@@ -3133,16 +3165,6 @@ function HomePage({ lang, setLang }) {
   const [backendReady, setBackendReady] = useState(false);
   const [unlocking, setUnlocking] = useState(false);
   const [showLimitModal, setShowLimitModal] = useState(false);
-  const [showBrowserPrompt, setShowBrowserPrompt] = useState(false);
-
- useEffect(() => {
-  const env = detectInAppBrowser();
-  const key = `vp_hide_browser_prompt_${env.app}`;
-
-  if (env.isInApp && !sessionStorage.getItem(key)) {
-    setShowBrowserPrompt(true);
-  }
-}, []);
 
  useEffect(() => {
   async function init() {
@@ -3152,9 +3174,7 @@ function HomePage({ lang, setLang }) {
       if (!sid) {
         const data = await fetchJsonSafe(`${API_BASE}/api/session`, {
           method: "POST",
-          headers: {
-            "x-device-id": getDeviceId(),
-          },
+          headers: { "x-device-id": getOrCreateDeviceId() },
         });
         sid = data.sessionId;
         localStorage.setItem("sessionId", sid);
@@ -3492,17 +3512,7 @@ const handleQuery = async (addressOverride) => {
   return (
     <>
       <div style={styles.page}>
-        <div className="vp-grid" />
-        {showBrowserPrompt && (
-          <InAppBrowserPrompt
-            lang={lang}
-            onClose={() => {
-              const env = detectInAppBrowser();
-              sessionStorage.setItem(`vp_hide_browser_prompt_${env.app}`, "1");
-              setShowBrowserPrompt(false);
-            }}
-          />
-        )}
+          <div className="vp-grid" />
 
         <div style={styles.container}>
           <header style={styles.header}>
@@ -3532,6 +3542,19 @@ const handleQuery = async (addressOverride) => {
             <div style={styles.riskItem}>{t.risk1}</div>
             <div style={styles.riskItem}>{t.risk2}</div>
             <div style={styles.riskItem}>{t.risk3}</div>
+          </div>
+
+          <div
+            style={{
+              marginTop: -2,
+              marginBottom: 14,
+              fontSize: 12,
+              lineHeight: 1.55,
+              textAlign: "center",
+              color: "rgba(255,255,255,0.74)",
+            }}
+          >
+            {getBrowserEnvironmentHint(lang)}
           </div>
 
           {!result && (
@@ -3986,11 +4009,16 @@ export default function App() {
 
   const [lang, setLang] = useState(getStoredLang());
 
-  if (window.location.pathname === "/payment") {
-    return <PaymentPage lang={lang} setLang={setLang} />;
-  }
-
-  return <HomePage lang={lang} setLang={setLang} />;
+  return (
+    <>
+      {window.location.pathname === "/payment" ? (
+        <PaymentPage lang={lang} setLang={setLang} />
+      ) : (
+        <HomePage lang={lang} setLang={setLang} />
+      )}
+      <InAppBrowserGuide lang={lang} />
+    </>
+  );
 }
 
 /* ===================== styles ===================== */
@@ -4002,55 +4030,6 @@ const styles = {
     color: "#e9edf2",
     position: "relative",
     overflow: "hidden",
-  },
-
-  inAppOverlay: {
-    position: "fixed",
-    inset: 0,
-    zIndex: 30,
-    background: "rgba(3,6,10,0.72)",
-    backdropFilter: "blur(10px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-  },
-
-  inAppModal: {
-    width: "100%",
-    maxWidth: 420,
-    borderRadius: 24,
-    padding: "22px 18px 18px",
-    background: "linear-gradient(180deg, rgba(18,16,20,0.97), rgba(12,10,16,0.98))",
-    border: "1px solid rgba(207,139,180,0.24)",
-    boxShadow: "0 22px 80px rgba(0,0,0,0.42), 0 0 0 1px rgba(255,255,255,0.04) inset",
-    textAlign: "center",
-  },
-
-  inAppIcon: {
-    fontSize: "2rem",
-    marginBottom: 10,
-  },
-
-  inAppTitle: {
-    color: "#fff",
-    fontWeight: 900,
-    fontSize: "1.16rem",
-    marginBottom: 10,
-  },
-
-  inAppDesc: {
-    color: "rgba(255,255,255,0.84)",
-    fontSize: "0.92rem",
-    lineHeight: 1.6,
-    marginBottom: 10,
-  },
-
-  inAppHint: {
-    color: "rgba(255,255,255,0.58)",
-    fontSize: "0.78rem",
-    lineHeight: 1.55,
-    marginBottom: 16,
   },
 
   payHint: {
