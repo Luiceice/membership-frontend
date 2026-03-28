@@ -1,8 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-console.log("🔥 NEW VERSION");
+const rabbitStyle = `
+@keyframes rabbitFloatA {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
 
-  function formatDate(dateStr) {
+@keyframes rabbitFloatB {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+`;
+         function formatDate(dateStr) {
   if (!dateStr) return "";
 
   const rabbitStyle = `
@@ -139,6 +148,7 @@ const translations = {
     potentialTitle: "Potential Airdrop Opportunities",
     claimableTitle: "Claimable Airdrops Detected",
     unlockContact: "Contact support to unlock full airdrop access",
+    unlockedAll: "All airdrop opportunities unlocked",
     exactPayHint: "Por favor, pague exactamente la cantidad mostrada, de lo contrario el sistema puede no reconocer el pago",
   },
 
@@ -247,6 +257,7 @@ const translations = {
     potentialTitle: "潛在空投機會",
     claimableTitle: "已檢測到可領取空投",
     unlockContact: "聯繫客服解鎖完整空投路徑",
+    unlockedAll: "已解鎖所有空投機會",
     exactPayHint: "請嚴格按照顯示金額支付，否則系統可能無法自動識別訂單",
   },
 
@@ -355,6 +366,7 @@ const translations = {
     potentialTitle: "潜在的なエアドロップ機会",
     claimableTitle: "受け取り可能なエアドロップを検出",
     unlockContact: "サポートに連絡してすべてのエアドロップを解放",
+    unlockedAll: "すべてのエアドロップ機会が解放されました",
     exactPayHint: "表示された金額を正確にお支払いください。そうでない場合、システムが支払いを認識できない可能性があります",
   },
 
@@ -463,6 +475,7 @@ const translations = {
     potentialTitle: "Oportunidades potenciales de airdrop",
     claimableTitle: "Airdrops reclamables detectados",
     unlockContact: "Contactar soporte para desbloquear acceso completo a airdrop",
+    unlockedAll: "Todas las oportunidades de airdrop desbloqueadas",
     exactPayHint: "Por favor, pague exactamente la cantidad mostrada, de lo contrario el sistema puede no reconocer el pago",
   },
 
@@ -571,6 +584,7 @@ const translations = {
     potentialTitle: "Potenziali opportunità di airdrop",
     claimableTitle: "Airdrop riscattabili rilevati",
     unlockContact: "Contatta il supporto per sbloccare l'accesso completo agli airdrop",
+    unlockedAll: "Tutte le opportunità di airdrop sbloccate",
     exactPayHint: "Si prega di pagare esattamente l'importo indicato, altrimenti il sistema potrebbe non riconoscere il pagamento",
   },
 
@@ -680,6 +694,7 @@ const translations = {
     potentialTitle: "잠재적 에어드롭 기회",
     claimableTitle: "청구 가능한 에어드롭 감지",
     exactPayHint: "표시된 금액을 정확히 결제해주세요. 그렇지 않으면 시스템이 결제를 인식하지 못할 수 있습니다",
+    unlockedAll: "모든 에어드랍 기회가 해제되었습니다",
   },
 
   ru: {
@@ -788,6 +803,7 @@ const translations = {
     potentialTitle: "Потенциальные возможности аирдропа",
     claimableTitle: "Обнаружены доступные аирдропы",
     unlockContact: "Свяжитесь с поддержкой, чтобы открыть полный доступ к аирдропам",
+    unlockedAll: "Все возможности аирдропа разблокированы",
     exactPayHint: "Пожалуйста, оплатите точную указанную сумму, иначе система может не распознать платеж",
   },
 };
@@ -1154,6 +1170,8 @@ function useGlobalStyles() {
     }
   }
 
+      }
+
       .pulse-btn {
         position: relative;
         overflow: hidden;
@@ -1289,22 +1307,6 @@ function useGlobalStyles() {
         shape-rendering: crispEdges;
       }
 
-      .rabbit-float-a,
-      .rabbit-float-b {
-        transform-box: fill-box;
-        transform-origin: center;
-        will-change: transform;
-      }
-
-      .rabbit-float-a {
-        animation: rabbitFloatA 3.8s ease-in-out infinite;
-      }
-
-      .rabbit-float-b {
-        animation: rabbitFloatB 4.6s ease-in-out infinite;
-        animation-delay: 0.8s;
-      }
-
       .rabbit-outline {
         fill: none;
         stroke: rgba(255,240,248,0.92);
@@ -1337,36 +1339,6 @@ function useGlobalStyles() {
         fill: rgba(255,238,248,0.9);
         animation: rabbitSpark 5.6s ease-in-out infinite;
       }
-
-      @keyframes rabbitFloatA {
-  0% {
-    transform: translate(0px, 0px);
-  }
-  30% {
-    transform: translate(calc(0.5px + 0.5px * var(--rand)), calc(-2px - 1px * var(--rand)));
-  }
-  55% {
-    transform: translate(calc(0.5px + 0.5px * var(--rand)), calc(-2px - 1px * var(--rand)));
-  }
-  100% {
-    transform: translate(0px, 0px);
-  }
-}
-
-@keyframes rabbitFloatB {
-  0% {
-    transform: translate(0px, 0px);
-  }
-  35% {
-    transform: translate(calc(-0.5px - 0.5px * var(--rand2)), calc(-1.5px - 1px * var(--rand2)));
-  }
-  65% {
-    transform: translate(calc(-0.5px - 0.5px * var(--rand2)), calc(-1.5px - 1px * var(--rand2)));
-  }
-  100% {
-    transform: translate(0px, 0px);
-  }
-}
 
       @keyframes rabbitTwinkleA {
         0%, 100% { opacity: 0.2; }
@@ -2365,15 +2337,8 @@ function PixelBearPanel() {
   const leftRabbit = useMemo(() => buildRabbitMatrix(42, 1, "pink"), []);
   const rightRabbit = useMemo(() => buildRabbitMatrix(172, 2, "blue"), []);
 
-  const renderRabbit = (rabbit, key, motionClass) => (
-    <g
-  key={key}
-  className={motionClass}
-  style={{
-    "--rand": Math.random(),
-    "--rand2": Math.random()
-  }}
->
+  const renderRabbit = (rabbit, key) => (
+    <g key={key}>
       {rabbit.outlineRects.map((rect, index) => (
         <rect
           key={`${key}-o-${index}`}
@@ -2425,8 +2390,8 @@ function PixelBearPanel() {
   return (
     <div className="pixel-bear-panel">
       <svg className="pixel-bear-svg" viewBox="0 0 320 170" aria-hidden="true">
-        {renderRabbit(leftRabbit, "left", "rabbit-float-a")}
-        {renderRabbit(rightRabbit, "right", "rabbit-float-b")}
+        {renderRabbit(leftRabbit, "left")}
+        {renderRabbit(rightRabbit, "right")}
       </svg>
     </div>
   );
@@ -3005,7 +2970,25 @@ if (paidFlag) {
     };
   };
 
- const handleQuery = async (addressOverride) => {
+ const triggerLimitModal = () => {
+  setShowLimitModal(true);
+  setRedirectCountdown(3);
+
+  window.setTimeout(() => {
+    setRedirectCountdown(2);
+  }, 1000);
+
+  window.setTimeout(() => {
+    setRedirectCountdown(1);
+  }, 2000);
+
+  window.setTimeout(() => {
+    setRedirectCountdown(null);
+    goToPayment(paymentType);
+  }, 3000);
+};
+
+const handleQuery = async (addressOverride) => {
   const cleanAddress = (addressOverride || walletAddress).trim();
 
   if (!isValidEvmAddress(cleanAddress)) {
@@ -3079,22 +3062,7 @@ if (paidFlag) {
     }
 
     if (data.code === "FREE_LIMIT_REACHED") {
-      setShowLimitModal(true);
-      setRedirectCountdown(3);
-
-      setTimeout(() => {
-        setRedirectCountdown(2);
-      }, 1000);
-
-      setTimeout(() => {
-        setRedirectCountdown(1);
-      }, 2000);
-
-      setTimeout(() => {
-        setRedirectCountdown(null);
-        goToPayment(paymentType);
-      }, 3000);
-
+      triggerLimitModal();
       return;
     }
 
@@ -3114,6 +3082,18 @@ if (paidFlag) {
     setWalletAddress("");
   } catch (e) {
     console.error("query failed", e);
+
+    const errorText = String(e?.message || e || "").toUpperCase();
+    const looksLikeLimitError =
+      errorText.includes("FREE_LIMIT_REACHED") ||
+      errorText.includes("LIMIT") ||
+      errorText.includes("429");
+
+    if (looksLikeLimitError) {
+      triggerLimitModal();
+      return;
+    }
+
     alert(t.limitReached);
   } finally {
     setQueryLoading(false);
@@ -3319,23 +3299,55 @@ if (paidFlag) {
                 </div>
               ) : null}
 
-              <div style={styles.lockNotice}>
-  🔒 {t.lockedRouteDesc.replace("{count}", "25")}
+<div
+  style={{
+    ...(isPaid
+  ? {
+      ...styles.unlockedNotice,
+      background:
+        "linear-gradient(180deg, rgba(255,220,235,0.16), rgba(255,180,215,0.08))",
+      border: "1px solid rgba(255,205,228,0.32)",
+      boxShadow:
+        "0 0 0 1px rgba(255,220,235,0.06) inset, 0 0 28px rgba(255,182,220,0.28), 0 0 60px rgba(255,182,220,0.16)",
+      textShadow: "0 0 12px rgba(255,220,235,0.32)",
+      color: "#ffe7f3",
+    }
+  : styles.lockNotice),
+    cursor: isPaid ? "default" : "auto",
+  }}
+>
+  {isPaid ? (
+    <>
+      <span
+  style={{
+    ...styles.unlockedBadgeDot,
+    background: "#ffd9ec",
+    boxShadow:
+      "0 0 10px rgba(255,217,236,0.95), 0 0 18px rgba(255,182,220,0.55)",
+  }}
+/>
+      {t.unlockedAll}
+    </>
+  ) : (
+    <>
+      🔒 {t.lockedRouteDesc.replace("{count}", "25")}
 
-  <div style={{ marginTop: "8px" }}>
-    <a
-      href="https://t.me/voidpulse_support"
-      target="_blank"
-      style={{
-        color: "#4da6ff",
-        textDecoration: "none",
-        fontSize: "0.82rem",
-        fontWeight: 600,
-      }}
-    >
-      📩 {t.unlockContact}
-    </a>
-  </div>
+      <div style={{ marginTop: "8px" }}>
+        <a
+          href="https://t.me/voidpulse_support"
+          target="_blank"
+          style={{
+            color: "#4da6ff",
+            textDecoration: "none",
+            fontSize: "0.82rem",
+            fontWeight: 600,
+          }}
+        >
+          📩 {t.unlockContact}
+        </a>
+      </div>
+    </>
+  )}
 </div>
               {resultSourceBadge ? (
                 <div
@@ -3571,6 +3583,11 @@ if (paidFlag) {
             </div>
 
             <div style={styles.paywallDesc}>{t.unlockSub}</div>
+            {redirectCountdown !== null && (
+              <div style={styles.paywallCountdown}>
+                {t.redirecting} {redirectCountdown}s...
+              </div>
+            )}
 
             <div style={styles.paywallActions}>
               <PulseButton
