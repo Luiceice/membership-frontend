@@ -127,6 +127,13 @@ const translations = {
     unlockContact: "Contact support to unlock full airdrop access",
     unlockedAll: "All airdrop opportunities unlocked",
     exactPayHint: "Por favor, pague exactamente la cantidad mostrada, de lo contrario el sistema puede no reconocer el pago",
+    openInBrowserTitle: "Open in Browser",
+    openInBrowserDesc: "For stable PRO access and payment status sync, please open this page in your browser.",
+    openInBrowserBtn: "Open in Browser",
+    copyLinkBtn: "Copy Link",
+    continueHereBtn: "Continue Here",
+    linkCopied: "Link copied",
+    browserOpenHint: "If the browser does not open automatically, tap Copy Link and paste it into Chrome or Safari.",
   },
 
   hk: {
@@ -237,6 +244,13 @@ const translations = {
     unlockContact: "聯繫客服解鎖完整空投路徑",
     unlockedAll: "已解鎖所有空投機會",
     exactPayHint: "請嚴格按照顯示金額支付，否則系統可能無法自動識別訂單",
+    openInBrowserTitle: "請用瀏覽器打開",
+    openInBrowserDesc: "為了保持會員狀態與支付同步更穩定，請盡量使用瀏覽器打開本頁。",
+    openInBrowserBtn: "在瀏覽器打開",
+    copyLinkBtn: "複製連結",
+    continueHereBtn: "仍然在此使用",
+    linkCopied: "連結已複製",
+    browserOpenHint: "如果沒有自動跳轉瀏覽器，請點擊複製連結後貼到 Chrome 或 Safari 打開。",
   },
 
   jp: {
@@ -347,6 +361,13 @@ const translations = {
     unlockContact: "サポートに連絡してすべてのエアドロップを解放",
     unlockedAll: "すべてのエアドロップ機会が解放されました",
     exactPayHint: "表示された金額を正確にお支払いください。そうでない場合、システムが支払いを認識できない可能性があります",
+    openInBrowserTitle: "ブラウザで開いてください",
+    openInBrowserDesc: "PROアクセスと支払い同期を安定させるため、このページはブラウザで開いてください。",
+    openInBrowserBtn: "ブラウザで開く",
+    copyLinkBtn: "リンクをコピー",
+    continueHereBtn: "このまま続ける",
+    linkCopied: "リンクをコピーしました",
+    browserOpenHint: "自動でブラウザが開かない場合は、リンクをコピーして Chrome または Safari に貼り付けてください。",
   },
 
   es: {
@@ -457,6 +478,13 @@ const translations = {
     unlockContact: "Contactar soporte para desbloquear acceso completo a airdrop",
     unlockedAll: "Todas las oportunidades de airdrop desbloqueadas",
     exactPayHint: "Por favor, pague exactamente la cantidad mostrada, de lo contrario el sistema puede no reconocer el pago",
+    openInBrowserTitle: "Abrir en el navegador",
+    openInBrowserDesc: "Para un acceso PRO y una sincronización de pago más estables, abre esta página en tu navegador.",
+    openInBrowserBtn: "Abrir en el navegador",
+    copyLinkBtn: "Copiar enlace",
+    continueHereBtn: "Seguir aquí",
+    linkCopied: "Enlace copiado",
+    browserOpenHint: "Si el navegador no se abre automáticamente, pulsa Copiar enlace y pégalo en Chrome o Safari.",
   },
 
   it: {
@@ -567,6 +595,13 @@ const translations = {
     unlockContact: "Contatta il supporto per sbloccare l'accesso completo agli airdrop",
     unlockedAll: "Tutte le opportunità di airdrop sbloccate",
     exactPayHint: "Si prega di pagare esattamente l'importo indicato, altrimenti il sistema potrebbe non riconoscere il pagamento",
+    openInBrowserTitle: "Apri nel browser",
+    openInBrowserDesc: "Per un accesso PRO e una sincronizzazione del pagamento più stabili, apri questa pagina nel browser.",
+    openInBrowserBtn: "Apri nel browser",
+    copyLinkBtn: "Copia link",
+    continueHereBtn: "Continua qui",
+    linkCopied: "Link copiato",
+    browserOpenHint: "Se il browser non si apre automaticamente, tocca Copia link e incollalo in Chrome o Safari.",
   },
 
   kr: {
@@ -676,6 +711,13 @@ const translations = {
     potentialTitle: "잠재적 에어드롭 기회",
     claimableTitle: "청구 가능한 에어드롭 감지",
     exactPayHint: "표시된 금액을 정확히 결제해주세요. 그렇지 않으면 시스템이 결제를 인식하지 못할 수 있습니다",
+    openInBrowserTitle: "브라우저에서 열어주세요",
+    openInBrowserDesc: "PRO 접근과 결제 동기화를 더 안정적으로 유지하려면 이 페이지를 브라우저에서 열어주세요.",
+    openInBrowserBtn: "브라우저에서 열기",
+    copyLinkBtn: "링크 복사",
+    continueHereBtn: "여기서 계속",
+    linkCopied: "링크가 복사되었습니다",
+    browserOpenHint: "브라우저가 자동으로 열리지 않으면 링크를 복사해서 Chrome 또는 Safari에 붙여넣어 주세요.",
     unlockedAll: "모든 에어드랍 기회가 해제되었습니다",
   },
 
@@ -788,6 +830,13 @@ const translations = {
     unlockContact: "Свяжитесь с поддержкой, чтобы открыть полный доступ к аирдропам",
     unlockedAll: "Все возможности аирдропа разблокированы",
     exactPayHint: "Пожалуйста, оплатите точную указанную сумму, иначе система может не распознать платеж",
+    openInBrowserTitle: "Откройте в браузере",
+    openInBrowserDesc: "Чтобы PRO-доступ и синхронизация оплаты работали стабильнее, откройте эту страницу в браузере.",
+    openInBrowserBtn: "Открыть в браузере",
+    copyLinkBtn: "Скопировать ссылку",
+    continueHereBtn: "Продолжить здесь",
+    linkCopied: "Ссылка скопирована",
+    browserOpenHint: "Если браузер не открылся автоматически, нажмите Скопировать ссылку и вставьте её в Chrome или Safari.",
   },
 };
 
@@ -943,30 +992,6 @@ function getTodayKey() {
   return new Date().toDateString();
 }
 
-function getClientDeviceId() {
-  try {
-    const cached = localStorage.getItem("vp_device_id");
-    if (cached) return cached;
-  } catch {}
-
-  const parts = [
-    navigator.userAgent || "ua",
-    navigator.platform || "platform",
-    navigator.language || "lang",
-    screen.width || 0,
-    screen.height || 0,
-    Intl.DateTimeFormat().resolvedOptions().timeZone || "tz",
-  ];
-
-  const fallbackId = `vp_${parts.join("|")}`;
-
-  try {
-    localStorage.setItem("vp_device_id", fallbackId);
-  } catch {}
-
-  return fallbackId;
-}
-
 function getStoredLang() {
   const browserLang = (navigator.language || "en").toLowerCase();
   const defaultLang = browserLang.includes("zh")
@@ -984,6 +1009,77 @@ function getStoredLang() {
     : "gb";
 
   return localStorage.getItem("language") || defaultLang;
+}
+
+function getDeviceId() {
+  const key = "vp_device_id_v1";
+  let id = localStorage.getItem(key);
+
+  if (!id) {
+    const seed = [
+      navigator.userAgent || "",
+      navigator.language || "",
+      window.screen?.width || "",
+      window.screen?.height || "",
+      new Date().getTimezoneOffset(),
+    ].join("|");
+
+    let hash = 0;
+    for (let i = 0; i < seed.length; i += 1) {
+      hash = (hash << 5) - hash + seed.charCodeAt(i);
+      hash |= 0;
+    }
+
+    id = `vp-${Math.abs(hash)}-${String(seed.length)}`;
+    localStorage.setItem(key, id);
+  }
+
+  return id;
+}
+
+function detectInAppBrowser() {
+  const ua = (navigator.userAgent || "").toLowerCase();
+
+  if (/micromessenger/.test(ua)) return { isInApp: true, app: "wechat" };
+  if (/telegram/.test(ua)) return { isInApp: true, app: "telegram" };
+  if (/whatsapp/.test(ua)) return { isInApp: true, app: "whatsapp" };
+
+  return { isInApp: false, app: "browser" };
+}
+
+function openCurrentPageInBrowser() {
+  const currentUrl = window.location.href;
+  const ua = (navigator.userAgent || "").toLowerCase();
+
+  try {
+    if (window.Telegram?.WebApp?.openLink && /telegram/.test(ua)) {
+      window.Telegram.WebApp.openLink(currentUrl);
+      return true;
+    }
+  } catch (e) {
+    console.error("telegram openLink failed", e);
+  }
+
+  try {
+    window.open(currentUrl, "_blank", "noopener,noreferrer");
+    return true;
+  } catch (e) {
+    console.error("window.open failed", e);
+  }
+
+  return false;
+}
+
+async function copyCurrentLink() {
+  const currentUrl = window.location.href;
+
+  try {
+    await navigator.clipboard.writeText(currentUrl);
+    return true;
+  } catch (e) {
+    console.error("copy link failed", e);
+    return false;
+  }
 }
 
 function getSourceBadge(sourceType, t) {
@@ -2560,6 +2656,43 @@ function IconCloseButton({ onClick, title }) {
   );
 }
 
+function InAppBrowserPrompt({ lang, onClose }) {
+  const t = tFor(lang);
+  const [copyDone, setCopyDone] = useState(false);
+
+  return (
+    <div style={styles.inAppOverlay}>
+      <div style={styles.inAppModal}>
+        <div style={styles.inAppIcon}>🌐</div>
+        <div style={styles.inAppTitle}>{t.openInBrowserTitle}</div>
+        <div style={styles.inAppDesc}>{t.openInBrowserDesc}</div>
+        <div style={styles.inAppHint}>{t.browserOpenHint}</div>
+
+        <PulseButton onClick={() => openCurrentPageInBrowser()} style={styles.primaryBtn}>
+          {t.openInBrowserBtn}
+        </PulseButton>
+
+        <PulseButton
+          onClick={async () => {
+            const ok = await copyCurrentLink();
+            if (ok) {
+              setCopyDone(true);
+              window.setTimeout(() => setCopyDone(false), 2200);
+            }
+          }}
+          style={styles.secondaryBtn}
+        >
+          {copyDone ? t.linkCopied : t.copyLinkBtn}
+        </PulseButton>
+
+        <PulseButton onClick={onClose} style={styles.ghostButton}>
+          {t.continueHereBtn}
+        </PulseButton>
+      </div>
+    </div>
+  );
+}
+
 /* ===================== payment page ===================== */
 function PaymentPage({ lang, setLang }) {
   const t = tFor(lang);
@@ -2582,6 +2715,7 @@ function PaymentPage({ lang, setLang }) {
   const [order, setOrder] = useState(null);
   const [status, setStatus] = useState(t.payWaiting);
   const [alreadyPaid, setAlreadyPaid] = useState(false);
+  const [showBrowserPrompt, setShowBrowserPrompt] = useState(false);
 
   const plan = useMemo(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -2594,6 +2728,15 @@ function PaymentPage({ lang, setLang }) {
   }, [t.payWaiting]);
 
   useEffect(() => {
+    const env = detectInAppBrowser();
+    const key = `vp_hide_browser_prompt_${env.app}`;
+
+    if (env.isInApp && !sessionStorage.getItem(key)) {
+      setShowBrowserPrompt(true);
+    }
+  }, []);
+
+  useEffect(() => {
     async function initSession() {
       try {
         let sid = localStorage.getItem("sessionId");
@@ -2602,7 +2745,7 @@ function PaymentPage({ lang, setLang }) {
           const data = await fetchJsonSafe(`${API_BASE}/api/session`, {
             method: "POST",
             headers: {
-              "x-device-id": getClientDeviceId(),
+              "x-device-id": getDeviceId(),
             },
           });
           sid = data.sessionId;
@@ -2722,7 +2865,6 @@ function PaymentPage({ lang, setLang }) {
 
           if (membershipData.active) {
             clearInterval(timer);
-            setStatus(t.payPaid);
             localStorage.setItem("isPaid", "true");
             setAlreadyPaid(true);
 
@@ -2732,6 +2874,7 @@ function PaymentPage({ lang, setLang }) {
               localStorage.removeItem("expiryDate");
             }
 
+            setStatus(t.payPaid);
             window.location.href = `${window.location.origin}/`;
           } else {
             setStatus(t.paymentCheckFailed);
@@ -2758,6 +2901,16 @@ function PaymentPage({ lang, setLang }) {
   return (
     <div style={styles.page}>
       <div className="vp-grid" />
+      {showBrowserPrompt && (
+        <InAppBrowserPrompt
+          lang={lang}
+          onClose={() => {
+            const env = detectInAppBrowser();
+            sessionStorage.setItem(`vp_hide_browser_prompt_${env.app}`, "1");
+            setShowBrowserPrompt(false);
+          }}
+        />
+      )}
 
       <div style={styles.container}>
         <header style={styles.header}>
@@ -2916,6 +3069,16 @@ function HomePage({ lang, setLang }) {
   const [backendReady, setBackendReady] = useState(false);
   const [unlocking, setUnlocking] = useState(false);
   const [showLimitModal, setShowLimitModal] = useState(false);
+  const [showBrowserPrompt, setShowBrowserPrompt] = useState(false);
+
+ useEffect(() => {
+  const env = detectInAppBrowser();
+  const key = `vp_hide_browser_prompt_${env.app}`;
+
+  if (env.isInApp && !sessionStorage.getItem(key)) {
+    setShowBrowserPrompt(true);
+  }
+}, []);
 
  useEffect(() => {
   async function init() {
@@ -2926,7 +3089,7 @@ function HomePage({ lang, setLang }) {
         const data = await fetchJsonSafe(`${API_BASE}/api/session`, {
           method: "POST",
           headers: {
-            "x-device-id": getClientDeviceId(),
+            "x-device-id": getDeviceId(),
           },
         });
         sid = data.sessionId;
@@ -3265,7 +3428,17 @@ const handleQuery = async (addressOverride) => {
   return (
     <>
       <div style={styles.page}>
-          <div className="vp-grid" />
+        <div className="vp-grid" />
+        {showBrowserPrompt && (
+          <InAppBrowserPrompt
+            lang={lang}
+            onClose={() => {
+              const env = detectInAppBrowser();
+              sessionStorage.setItem(`vp_hide_browser_prompt_${env.app}`, "1");
+              setShowBrowserPrompt(false);
+            }}
+          />
+        )}
 
         <div style={styles.container}>
           <header style={styles.header}>
@@ -3765,6 +3938,55 @@ const styles = {
     color: "#e9edf2",
     position: "relative",
     overflow: "hidden",
+  },
+
+  inAppOverlay: {
+    position: "fixed",
+    inset: 0,
+    zIndex: 30,
+    background: "rgba(3,6,10,0.72)",
+    backdropFilter: "blur(10px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "20px",
+  },
+
+  inAppModal: {
+    width: "100%",
+    maxWidth: 420,
+    borderRadius: 24,
+    padding: "22px 18px 18px",
+    background: "linear-gradient(180deg, rgba(18,16,20,0.97), rgba(12,10,16,0.98))",
+    border: "1px solid rgba(207,139,180,0.24)",
+    boxShadow: "0 22px 80px rgba(0,0,0,0.42), 0 0 0 1px rgba(255,255,255,0.04) inset",
+    textAlign: "center",
+  },
+
+  inAppIcon: {
+    fontSize: "2rem",
+    marginBottom: 10,
+  },
+
+  inAppTitle: {
+    color: "#fff",
+    fontWeight: 900,
+    fontSize: "1.16rem",
+    marginBottom: 10,
+  },
+
+  inAppDesc: {
+    color: "rgba(255,255,255,0.84)",
+    fontSize: "0.92rem",
+    lineHeight: 1.6,
+    marginBottom: 10,
+  },
+
+  inAppHint: {
+    color: "rgba(255,255,255,0.58)",
+    fontSize: "0.78rem",
+    lineHeight: 1.55,
+    marginBottom: 16,
   },
 
   payHint: {
