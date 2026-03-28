@@ -1047,27 +1047,71 @@ function detectInAppBrowser() {
   return { isInApp: false, app: "browser" };
 }
 
-function openCurrentPageInBrowser() {
-  const currentUrl = window.location.href;
-  const ua = (navigator.userAgent || "").toLowerCase();
+function getInAppGuide(lang) {
+  const env = detectInAppBrowser();
+  const isZh = lang === "hk";
 
-  try {
-    if (window.Telegram?.WebApp?.openLink && /telegram/.test(ua)) {
-      window.Telegram.WebApp.openLink(currentUrl);
-      return true;
-    }
-  } catch (e) {
-    console.error("telegram openLink failed", e);
+  if (env.app === "telegram") {
+    return {
+      app: "telegram",
+      emoji: "✈️",
+      title: isZh ? "請用瀏覽器打開" : "Open in Browser",
+      desc: isZh
+        ? "你目前在 Telegram 內打開。為了支付與會員狀態更穩定，請用系統瀏覽器打開。"
+        : "You are viewing this page inside Telegram. For more stable payment and PRO access, open it in your browser.",
+      steps: isZh
+        ? ["點右上角 ⋮ 或分享按鈕", "選擇「在瀏覽器打開」", "若找不到，先複製連結再貼到 Chrome / Safari"]
+        : ["Tap the top-right menu ⋮ or share button", "Choose Open in Browser", "If you cannot find it, copy the link and paste it into Chrome or Safari"],
+      menuLabel: isZh ? "右上角 ⋮" : "Top-right ⋮",
+      actionLabel: isZh ? "在瀏覽器打開" : "Open in Browser",
+    };
   }
 
-  try {
-    window.open(currentUrl, "_blank", "noopener,noreferrer");
-    return true;
-  } catch (e) {
-    console.error("window.open failed", e);
+  if (env.app === "wechat") {
+    return {
+      app: "wechat",
+      emoji: "💬",
+      title: isZh ? "請用瀏覽器打開" : "Open in Browser",
+      desc: isZh
+        ? "你目前在微信內打開。為了支付與會員狀態更穩定，請切換到系統瀏覽器。"
+        : "You are viewing this page inside WeChat. For more stable payment and PRO access, open it in your browser.",
+      steps: isZh
+        ? ["點右上角 ⋯", "選擇「在瀏覽器打開」", "若沒有此選項，先複製連結再貼到 Chrome / Safari"]
+        : ["Tap the top-right menu ⋯", "Choose Open in Browser", "If the option is missing, copy the link and paste it into Chrome or Safari"],
+      menuLabel: isZh ? "右上角 ⋯" : "Top-right ⋯",
+      actionLabel: isZh ? "在瀏覽器打開" : "Open in Browser",
+    };
   }
 
-  return false;
+  if (env.app === "whatsapp") {
+    return {
+      app: "whatsapp",
+      emoji: "🟢",
+      title: isZh ? "請用瀏覽器打開" : "Open in Browser",
+      desc: isZh
+        ? "你目前在 WhatsApp 內打開。為了支付與會員狀態更穩定，建議切換到系統瀏覽器。"
+        : "You are viewing this page inside WhatsApp. For more stable payment and PRO access, open it in your browser.",
+      steps: isZh
+        ? ["點右上角 ⋮", "選擇「在瀏覽器打開」", "若沒有跳轉，先複製連結再貼到 Chrome / Safari"]
+        : ["Tap the top-right menu ⋮", "Choose Open in Browser", "If it does not open, copy the link and paste it into Chrome or Safari"],
+      menuLabel: isZh ? "右上角 ⋮" : "Top-right ⋮",
+      actionLabel: isZh ? "在瀏覽器打開" : "Open in Browser",
+    };
+  }
+
+  return {
+    app: "browser",
+    emoji: "🌐",
+    title: isZh ? "請用瀏覽器打開" : "Open in Browser",
+    desc: isZh
+      ? "為了支付與會員狀態更穩定，建議在系統瀏覽器中使用。"
+      : "For more stable payment and PRO access, please use this page in your browser.",
+    steps: isZh
+      ? ["點複製連結", "打開 Chrome / Safari", "貼上網址後繼續使用"]
+      : ["Tap Copy Link", "Open Chrome or Safari", "Paste the URL and continue there"],
+    menuLabel: isZh ? "複製連結" : "Copy Link",
+    actionLabel: isZh ? "瀏覽器" : "Browser",
+  };
 }
 
 async function copyCurrentLink() {
@@ -2657,20 +2701,44 @@ function IconCloseButton({ onClick, title }) {
 }
 
 function InAppBrowserPrompt({ lang, onClose }) {
-  const t = tFor(lang);
   const [copyDone, setCopyDone] = useState(false);
+  const guide = getInAppGuide(lang);
 
   return (
     <div style={styles.inAppOverlay}>
       <div style={styles.inAppModal}>
-        <div style={styles.inAppIcon}>🌐</div>
-        <div style={styles.inAppTitle}>{t.openInBrowserTitle}</div>
-        <div style={styles.inAppDesc}>{t.openInBrowserDesc}</div>
-        <div style={styles.inAppHint}>{t.browserOpenHint}</div>
+        <button onClick={onClose} style={styles.inAppCloseBtn} aria-label="Close">
+          ✕
+        </button>
 
-        <PulseButton onClick={() => openCurrentPageInBrowser()} style={styles.primaryBtn}>
-          {t.openInBrowserBtn}
-        </PulseButton>
+        <div style={styles.inAppIcon}>{guide.emoji}</div>
+        <div style={styles.inAppTitle}>{guide.title}</div>
+        <div style={styles.inAppDesc}>{guide.desc}</div>
+
+        <div style={styles.inAppDiagramWrap}>
+          <div style={styles.inAppPhoneFrame}>
+            <div style={styles.inAppPhoneTopBar}>
+              <span style={styles.inAppDot} />
+              <span style={styles.inAppDot} />
+              <span style={styles.inAppDot} />
+            </div>
+            <div style={styles.inAppPhoneBody}>
+              <div style={styles.inAppFakeUrlBar}>https://voidpulse.ai</div>
+              <div style={styles.inAppMenuHotspot}>{guide.menuLabel}</div>
+              <div style={styles.inAppArrow}>↘</div>
+              <div style={styles.inAppActionCard}>{guide.actionLabel}</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={styles.inAppSteps}>
+          {guide.steps.map((step, index) => (
+            <div key={index} style={styles.inAppStepRow}>
+              <div style={styles.inAppStepNo}>{index + 1}</div>
+              <div style={styles.inAppStepText}>{step}</div>
+            </div>
+          ))}
+        </div>
 
         <PulseButton
           onClick={async () => {
@@ -2680,13 +2748,9 @@ function InAppBrowserPrompt({ lang, onClose }) {
               window.setTimeout(() => setCopyDone(false), 2200);
             }
           }}
-          style={styles.secondaryBtn}
+          style={styles.primaryBtn}
         >
-          {copyDone ? t.linkCopied : t.copyLinkBtn}
-        </PulseButton>
-
-        <PulseButton onClick={onClose} style={styles.ghostButton}>
-          {t.continueHereBtn}
+          {copyDone ? tFor(lang).linkCopied : tFor(lang).copyLinkBtn}
         </PulseButton>
       </div>
     </div>
