@@ -1137,7 +1137,12 @@ function getInAppGuideContent(lang, isWeChat) {
 function InAppBrowserGuide({ lang }) {
   const env = detectBrowserEnvironment();
 
-  if (!env.isInApp) return null;
+  const forceShow =
+  env.isTelegram ||
+  /telegram/i.test(navigator.userAgent) ||
+  document.referrer.includes("t.me");
+
+if (!forceShow && !env.isWeChat && !env.isWhatsApp) return null;
 
   const currentUrl = window.location.href;
 
@@ -4030,7 +4035,7 @@ export default function App() {
 
  return (
   <>
-    <InAppBrowserGuide lang={lang} />
+    
     {window.location.pathname === "/payment"
       ? <PaymentPage lang={lang} setLang={setLang} />
       : <HomePage lang={lang} setLang={setLang} />}
