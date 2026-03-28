@@ -3009,7 +3009,17 @@ function PaymentPage({ lang, setLang }) {
 
     async function initPayment() {
       try {
-       
+       const saved = localStorage.getItem("latestOrder");
+
+if (saved) {
+  const parsed = JSON.parse(saved);
+
+  if (parsed?.orderId) {
+    setOrder(parsed);
+    setStatus(t.payReady);
+    return;
+  }
+}
 
         let membershipData = { active: false, endsAt: null };
 
