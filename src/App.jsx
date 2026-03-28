@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+console.log("🔥🔥🔥 THIS IS THE REAL APP FILE 🔥🔥🔥");
 
 function formatDate(dateStr) {
   if (!dateStr) return "";
