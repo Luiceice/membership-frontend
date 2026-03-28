@@ -1057,6 +1057,56 @@ function getBrowserEnvironmentHint(lang) {
   return map[lang] || map.gb;
 }
 
+
+function getSocialOpenHint(lang) {
+  const map = {
+    gb: {
+      text: "If this link was opened from Telegram / WeChat / WhatsApp, please open it in your browser.",
+      button: "Copy current link",
+      copied: "Link copied",
+      failed: "Copy failed, please copy manually",
+    },
+    hk: {
+      text: "若此鏈接是從 Telegram / 微信 / WhatsApp 打開，請改用系統瀏覽器打開。",
+      button: "複製當前鏈接",
+      copied: "鏈接已複製",
+      failed: "複製失敗，請手動複製",
+    },
+    ru: {
+      text: "Если ссылка открыта из Telegram / WeChat / WhatsApp, откройте её в браузере.",
+      button: "Скопировать ссылку",
+      copied: "Ссылка скопирована",
+      failed: "Не удалось скопировать, скопируйте вручную",
+    },
+    jp: {
+      text: "このリンクを Telegram / WeChat / WhatsApp から開いた場合は、ブラウザで開いてください。",
+      button: "現在のリンクをコピー",
+      copied: "リンクをコピーしました",
+      failed: "コピーに失敗しました。手動でコピーしてください",
+    },
+    es: {
+      text: "Si abriste este enlace desde Telegram / WeChat / WhatsApp, ábrelo en el navegador.",
+      button: "Copiar enlace actual",
+      copied: "Enlace copiado",
+      failed: "No se pudo copiar, cópialo manualmente",
+    },
+    it: {
+      text: "Se hai aperto questo link da Telegram / WeChat / WhatsApp, aprilo nel browser.",
+      button: "Copia il link corrente",
+      copied: "Link copiato",
+      failed: "Copia non riuscita, copialo manualmente",
+    },
+    kr: {
+      text: "이 링크를 Telegram / WeChat / WhatsApp에서 열었다면 브라우저에서 열어주세요.",
+      button: "현재 링크 복사",
+      copied: "링크가 복사되었습니다",
+      failed: "복사에 실패했습니다. 수동으로 복사해주세요",
+    },
+  };
+  return map[lang] || map.gb;
+}
+
+
 function getInAppGuideContent(lang, isWeChat) {
   const common = {
     gb: {
@@ -1137,9 +1187,10 @@ function getInAppGuideContent(lang, isWeChat) {
 function InAppBrowserGuide({ lang }) {
   const env = detectBrowserEnvironment();
 
-  if (!env.isTelegram && !env.isWeChat && !env.isWhatsApp) return null;
+  if (!env.isInApp) return null;
 
   const currentUrl = window.location.href;
+  const content = getInAppGuideContent(lang, env.isWeChat);
 
   return (
     <div
@@ -1147,7 +1198,9 @@ function InAppBrowserGuide({ lang }) {
         position: "fixed",
         inset: 0,
         zIndex: 999999,
-        background: "rgba(0,0,0,0.82)",
+        background: "rgba(8,10,18,0.76)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -1157,43 +1210,117 @@ function InAppBrowserGuide({ lang }) {
       <div
         style={{
           width: "100%",
-          maxWidth: "420px",
-          background: "#111111",
+          maxWidth: "430px",
+          background: "linear-gradient(180deg, rgba(18,20,28,0.98), rgba(12,14,20,0.98))",
           color: "#ffffff",
-          borderRadius: "16px",
+          borderRadius: "20px",
           padding: "20px",
-          border: "1px solid rgba(255,255,255,0.12)",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
+          border: "1px solid rgba(255,255,255,0.10)",
+          boxShadow:
+            "0 16px 50px rgba(0,0,0,0.36), 0 0 26px rgba(238,103,220,0.12)",
           textAlign: "center",
         }}
       >
-        <div style={{ fontSize: "20px", fontWeight: 700, marginBottom: "12px" }}>
-          {["zh", "hk"].includes(lang) ? "请在系统浏览器打开" : "Open in system browser"}
+        <div
+          style={{
+            width: 54,
+            height: 54,
+            margin: "0 auto 14px",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background:
+              "radial-gradient(circle at 30% 30%, rgba(238,103,220,0.28), rgba(238,103,220,0.08) 65%, rgba(238,103,220,0.02) 100%)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            boxShadow: "0 0 24px rgba(238,103,220,0.16)",
+            fontSize: 24,
+            fontWeight: 800,
+          }}
+        >
+          ↗
         </div>
 
         <div
           style={{
-            fontSize: "14px",
-            lineHeight: 1.6,
-            color: "rgba(255,255,255,0.78)",
-            marginBottom: "14px",
+            fontSize: 20,
+            fontWeight: 800,
+            marginBottom: 10,
+            letterSpacing: 0.2,
           }}
         >
-          {["zh", "hk"].includes(lang)
-            ? "当前是内置浏览器环境，支付或跳转可能不正常。"
-            : "You are inside an in-app browser. Payment or redirect may not work properly."}
+          {content.title}
+        </div>
+
+        <div
+          style={{
+            fontSize: 14,
+            lineHeight: 1.65,
+            color: "rgba(255,255,255,0.80)",
+            marginBottom: 14,
+          }}
+        >
+          {content.desc}
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gap: 8,
+            textAlign: "left",
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 14,
+            padding: "12px 14px",
+            marginBottom: 14,
+          }}
+        >
+          {content.steps.map((step, idx) => (
+            <div
+              key={idx}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 10,
+                fontSize: 13,
+                lineHeight: 1.6,
+                color: "rgba(255,255,255,0.82)",
+              }}
+            >
+              <div
+                style={{
+                  minWidth: 20,
+                  height: 20,
+                  borderRadius: 999,
+                  background: "rgba(238,103,220,0.14)",
+                  border: "1px solid rgba(238,103,220,0.28)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: "#f7a7e9",
+                  marginTop: 1,
+                }}
+              >
+                {idx + 1}
+              </div>
+              <div>{step}</div>
+            </div>
+          ))}
         </div>
 
         <div
           style={{
             fontSize: "12px",
-            lineHeight: 1.5,
+            lineHeight: 1.55,
             wordBreak: "break-all",
-            background: "rgba(255,255,255,0.06)",
-            borderRadius: "10px",
+            background: "rgba(255,255,255,0.05)",
+            borderRadius: "12px",
             padding: "10px 12px",
             marginBottom: "12px",
             color: "rgba(255,255,255,0.72)",
+            border: "1px solid rgba(255,255,255,0.07)",
           }}
         >
           {currentUrl}
@@ -1203,35 +1330,41 @@ function InAppBrowserGuide({ lang }) {
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(currentUrl);
-              alert(["zh", "hk"].includes(lang) ? "链接已复制" : "Link copied");
+              alert(content.copy);
             } catch (e) {
-              alert(["zh", "hk"].includes(lang) ? "复制失败，请手动复制" : "Copy failed, please copy manually");
+              alert(content.copy);
             }
           }}
           style={{
             width: "100%",
             padding: "12px 14px",
-            borderRadius: "10px",
-            border: "none",
+            borderRadius: "12px",
+            border: "1px solid rgba(255,255,255,0.10)",
             cursor: "pointer",
             fontSize: "15px",
-            fontWeight: 700,
-            marginBottom: "10px",
+            fontWeight: 800,
+            marginBottom: "12px",
+            color: "#fff",
+            background:
+              "linear-gradient(180deg, rgba(238,103,220,0.24), rgba(238,103,220,0.14))",
+            boxShadow: "0 0 18px rgba(238,103,220,0.10)",
           }}
         >
-          {["zh", "hk"].includes(lang) ? "复制当前链接" : "Copy current link"}
+          {content.copy}
         </button>
 
         <div
           style={{
-            fontSize: "13px",
-            color: "rgba(255,255,255,0.66)",
+            fontSize: 12,
             lineHeight: 1.6,
+            color: "rgba(255,255,255,0.62)",
+            background: "rgba(255,255,255,0.03)",
+            borderRadius: 12,
+            padding: "10px 12px",
+            border: "1px solid rgba(255,255,255,0.06)",
           }}
         >
-          {["zh", "hk"].includes(lang)
-            ? "请点右上角菜单，再选择“在浏览器打开”"
-            : "Tap the top-right menu, then choose Open in Browser"}
+          {content.note}
         </div>
       </div>
     </div>
@@ -3010,52 +3143,6 @@ function PaymentPage({ lang, setLang }) {
 
   return (
     <div style={styles.page}>
-      <div
-  style={{
-    marginBottom: 14,
-    padding: "12px 14px",
-    borderRadius: 14,
-    background: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    color: "#fff",
-  }}
->
-  <div
-    style={{
-      fontSize: 13,
-      lineHeight: 1.6,
-      color: "rgba(255,255,255,0.82)",
-      marginBottom: 10,
-      textAlign: "center",
-    }}
-  >
-    {["zh", "hk"].includes(lang)
-      ? "若你在 Telegram / 微信 / WhatsApp 内打开，请点右上角菜单并选择“在浏览器打开”"
-      : "If opened inside Telegram / WeChat / WhatsApp, tap the top-right menu and choose Open in Browser"}
-  </div>
-
-  <button
-    onClick={async () => {
-      try {
-        await navigator.clipboard.writeText(window.location.href);
-        alert(["zh", "hk"].includes(lang) ? "链接已复制" : "Link copied");
-      } catch (e) {
-        alert(["zh", "hk"].includes(lang) ? "复制失败，请手动复制" : "Copy failed, please copy manually");
-      }
-    }}
-    style={{
-      width: "100%",
-      padding: "12px 14px",
-      borderRadius: 10,
-      border: "none",
-      cursor: "pointer",
-      fontSize: 14,
-      fontWeight: 700,
-    }}
-  >
-    {["zh", "hk"].includes(lang) ? "复制当前链接" : "Copy current link"}
-  </button>
-</div>
       <div className="vp-grid" />
 
       <div style={styles.container}>
@@ -3609,17 +3696,60 @@ const handleQuery = async (addressOverride) => {
 
           <div
             style={{
-    marginTop: 12,
-    fontSize: 13,
-    fontWeight: 800,
-    textAlign: "center",
-    lineHeight: 1.65,
-    color: "#ee67dc",
-
-    letterSpacing: 0.2,
+              marginTop: 12,
+              fontSize: 13,
+              fontWeight: 800,
+              textAlign: "center",
+              lineHeight: 1.65,
+              color: "#ee67dc",
+              letterSpacing: 0.2,
             }}
           >
             {getBrowserEnvironmentHint(lang)}
+          </div>
+
+          <div
+            style={{
+              marginTop: 12,
+              marginBottom: 4,
+              padding: "12px 14px",
+              borderRadius: 16,
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.09)",
+              boxShadow: "0 0 20px rgba(238,103,220,0.06)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 13,
+                lineHeight: 1.65,
+                textAlign: "center",
+                color: "rgba(255,255,255,0.84)",
+                marginBottom: 10,
+                fontWeight: 700,
+              }}
+            >
+              {getSocialOpenHint(lang).text}
+            </div>
+
+            <PulseButton
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(window.location.href);
+                  alert(getSocialOpenHint(lang).copied);
+                } catch (e) {
+                  alert(getSocialOpenHint(lang).failed);
+                }
+              }}
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                fontSize: 13,
+                minHeight: 44,
+              }}
+            >
+              {getSocialOpenHint(lang).button}
+            </PulseButton>
           </div>
 
           {!result && (
