@@ -1016,6 +1016,8 @@ function detectBrowserEnvironment() {
   return {
     isInApp,
     isWeChat,
+    isTelegram,
+  isWhatsApp,
   };
 }
 
@@ -1116,13 +1118,7 @@ function InAppBrowserGuide({ lang }) {
     const env = detectBrowserEnvironment();
     if (!env.isInApp) return;
 
-    try {
-      const onceKey = `vp_inapp_notice_${window.location.pathname}`;
-      if (sessionStorage.getItem(onceKey) === "1") return;
-      sessionStorage.setItem(onceKey, "1");
-    } catch {}
-
-    setOpen(true);
+    setOpen(true); // ✅ 关键：让弹窗出现
   }, []);
 
   if (!open) return null;
@@ -1144,7 +1140,9 @@ function InAppBrowserGuide({ lang }) {
           <IconCloseButton title={content.close} onClick={() => setOpen(false)} />
         </div>
 
-        <div style={{ ...styles.paywallDesc, marginBottom: 14 }}>{content.desc}</div>
+        <div style={{ ...styles.paywallDesc, marginBottom: 14 }}>
+          {content.desc}
+        </div>
 
         <div
           style={{
@@ -3546,12 +3544,14 @@ const handleQuery = async (addressOverride) => {
 
           <div
             style={{
-              marginTop: -2,
-              marginBottom: 14,
-              fontSize: 12,
-              lineHeight: 1.55,
-              textAlign: "center",
-              color: "rgba(255,255,255,0.74)",
+    marginTop: 12,
+    fontSize: 13,
+    fontWeight: 800,
+    textAlign: "center",
+    lineHeight: 1.65,
+    color: "#ee67dc",
+
+    letterSpacing: 0.2,
             }}
           >
             {getBrowserEnvironmentHint(lang)}
