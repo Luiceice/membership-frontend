@@ -996,8 +996,16 @@ function detectBrowserEnvironment() {
   const ua = navigator.userAgent || "";
   const referrer = document.referrer || "";
 
+  // ✅ 更强 Telegram 识别（重点修复）
+  const isTelegram =
+    /Telegram/i.test(ua) ||
+    /TgWebView/i.test(ua) ||
+    /tgandroid/i.test(ua) ||
+    /tgios/i.test(ua) ||
+    /TgIAB/i.test(ua) ||
+    referrer.includes("t.me");
+
   const isWeChat = /MicroMessenger/i.test(ua);
-  const isTelegram = /Telegram|TgIAB|TgWebView|tgandroid|tgios/i.test(ua);
   const isWhatsApp = /WhatsApp/i.test(ua);
 
   const looksLikeGenericWebView =
@@ -1011,13 +1019,27 @@ function detectBrowserEnvironment() {
       referrer
     );
 
-  const isInApp = isWeChat || isTelegram || isWhatsApp || looksLikeGenericWebView || cameFromMessengerApp;
+  const isInApp =
+    isWeChat ||
+    isTelegram ||
+    isWhatsApp ||
+    looksLikeGenericWebView ||
+    cameFromMessengerApp;
+
+  console.log("🌐 ENV DETECT:", {
+    ua,
+    referrer,
+    isTelegram,
+    isWeChat,
+    isWhatsApp,
+    isInApp,
+  });
 
   return {
     isInApp,
     isWeChat,
     isTelegram,
-  isWhatsApp,
+    isWhatsApp,
   };
 }
 
