@@ -21,6 +21,7 @@ const translations = {
   gb: {
     title: "VOIDPULSE",
     subtitle: "Airdrop Intelligence Terminal",
+    paymentSyncing: "Payment syncing...",
     walletLabel: "Wallet Address",
     placeholder: "Enter 0x wallet address",
     queryBtn: "Scan for Airdrops",
@@ -131,6 +132,7 @@ const translations = {
   hk: {
     title: "VOIDPULSE",
     subtitle: "Airdrop Intelligence Terminal",
+    paymentSyncing: "支付同步中...",
     walletLabel: "錢包地址",
     placeholder: "請輸入 0x 錢包地址",
     queryBtn: "立即挖掘空投",
@@ -240,6 +242,7 @@ const translations = {
   jp: {
     title: "VOIDPULSE",
     subtitle: "Airdrop Intelligence Terminal",
+    paymentSyncing: "決済を同期しています…",
     walletLabel: "ウォレットアドレス",
     placeholder: "0x ウォレットアドレスを入力してください",
     queryBtn: "エアドロップを検索",
@@ -349,6 +352,7 @@ const translations = {
   es: {
     title: "VOIDPULSE",
     subtitle: "Airdrop Intelligence Terminal",
+    paymentSyncing: "Sincronizando el pago…",
     walletLabel: "Dirección de wallet",
     placeholder: "Introduce una dirección 0x",
     queryBtn: "Buscar airdrops",
@@ -458,6 +462,7 @@ const translations = {
   it: {
     title: "VOIDPULSE",
     subtitle: "Airdrop Intelligence Terminal",
+    paymentSyncing: "Sincronizzazione del pagamento in corso…",
     walletLabel: "Indirizzo wallet",
     placeholder: "Inserisci un indirizzo 0x",
     queryBtn: "Cerca airdrop",
@@ -566,7 +571,8 @@ const translations = {
 
   kr: {
     title: "VOIDPULSE",
-    subtitle: "Airdrop Intelligence Terminal",
+   subtitle: "Airdrop Intelligence Terminal",
+    paymentSyncing: "결제를 동기화하는 중…",
     walletLabel: "지갑 주소",
     placeholder: "0x 지갑 주소를 입력하세요",
     queryBtn: "에어드롭 검색",
@@ -676,6 +682,7 @@ const translations = {
   ru: {
     title: "VOIDPULSE",
     subtitle: "Терминал аналитики аирдропов",
+    paymentSyncing: "Синхронизация платежа...",
     walletLabel: "Адрес кошелька",
     placeholder: "Введите адрес кошелька 0x",
     queryBtn: "Проверить аирдропы",
@@ -934,6 +941,30 @@ function shortenAddress(address) {
 
 function getTodayKey() {
   return new Date().toDateString();
+}
+
+function getClientDeviceId() {
+  try {
+    const cached = localStorage.getItem("vp_device_id");
+    if (cached) return cached;
+  } catch {}
+
+  const parts = [
+    navigator.userAgent || "ua",
+    navigator.platform || "platform",
+    navigator.language || "lang",
+    screen.width || 0,
+    screen.height || 0,
+    Intl.DateTimeFormat().resolvedOptions().timeZone || "tz",
+  ];
+
+  const fallbackId = `vp_${parts.join("|")}`;
+
+  try {
+    localStorage.setItem("vp_device_id", fallbackId);
+  } catch {}
+
+  return fallbackId;
 }
 
 function getStoredLang() {
@@ -2569,8 +2600,11 @@ function PaymentPage({ lang, setLang }) {
 
         if (!sid) {
           const data = await fetchJsonSafe(`${API_BASE}/api/session`, {
-  method: "POST",
-});
+            method: "POST",
+            headers: {
+              "x-device-id": getClientDeviceId(),
+            },
+          });
           sid = data.sessionId;
           localStorage.setItem("sessionId", sid);
         }
@@ -2661,11 +2695,7 @@ function PaymentPage({ lang, setLang }) {
         setOrder(merged);
         localStorage.setItem("latestOrder", JSON.stringify(merged));
 
-        if (
-          data.status === "paid" &&
-          data.txHash &&
-          String(data.txHash).trim() !== ""
-        ) {
+        if (data.status === "paid" || data?.membership?.active) {
           const orderMembershipActive = !!data?.membership?.active;
           const orderMembershipEndsAt = data?.membership?.expiry || null;
 
@@ -2692,6 +2722,7 @@ function PaymentPage({ lang, setLang }) {
 
           if (membershipData.active) {
             clearInterval(timer);
+            setStatus(t.payPaid);
             localStorage.setItem("isPaid", "true");
             setAlreadyPaid(true);
 
@@ -2701,7 +2732,7 @@ function PaymentPage({ lang, setLang }) {
               localStorage.removeItem("expiryDate");
             }
 
-            window.location.replace(`${window.location.origin}/`);
+            window.location.href = `${window.location.origin}/`;
           } else {
             setStatus(t.paymentCheckFailed);
           }
@@ -2757,7 +2788,23 @@ function PaymentPage({ lang, setLang }) {
 
         <div style={styles.card}>
           <div style={styles.payTitle}>{t.payTitle}</div>
-          <div style={styles.payStatus}>{status}</div>
+<div style={styles.payStatus}>{status}</div>
+
+{status !== t.payPaid && (
+  <div
+    style={{
+      marginTop: 10,
+      fontSize: 12,
+      lineHeight: 1.6,
+      color: "rgba(255,255,255,0.68)",
+      textAlign: "center",
+    }}
+  >
+    ⏳ {t.paymentSyncing}
+<br />
+{t.paymentSyncingHint}
+  </div>
+)}
 
           <div style={styles.infoLine}>
             <span style={styles.labelSmall}>{t.choosePlan}</span>
@@ -2878,6 +2925,9 @@ function HomePage({ lang, setLang }) {
       if (!sid) {
         const data = await fetchJsonSafe(`${API_BASE}/api/session`, {
           method: "POST",
+          headers: {
+            "x-device-id": getClientDeviceId(),
+          },
         });
         sid = data.sessionId;
         localStorage.setItem("sessionId", sid);
