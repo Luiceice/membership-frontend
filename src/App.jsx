@@ -2967,6 +2967,7 @@ function PaymentPage({ lang, setLang }) {
   const [order, setOrder] = useState(null);
   const [status, setStatus] = useState(t.payWaiting);
   const [alreadyPaid, setAlreadyPaid] = useState(false);
+  const [confirmingPaid, setConfirmingPaid] = useState(false);
 
   const plan = useMemo(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -3201,7 +3202,7 @@ function PaymentPage({ lang, setLang }) {
   >
     ⏳ {t.paymentSyncing}
 <br />
-{t.paymentSyncingHint}
+{t.paymentSyncingHint || t.exactPayHint || ""}
   </div>
 )}
 
@@ -3283,6 +3284,42 @@ function PaymentPage({ lang, setLang }) {
               </PulseButton>
 
               <div style={styles.transferWarning}>{t.riskTransfer}</div>
+
+              <PulseButton
+                onClick={async () => {
+                  if (!order?.orderId || confirmingPaid) return;
+
+                  try {
+                    setConfirmingPaid(true);
+                    setStatus(t.paymentSyncing);
+
+                    const data = await fetchJsonSafe(
+                      `${API_BASE}/api/orders/${order.orderId}/confirm`,
+                      { method: "POST" }
+                    );
+
+                    const merged = { ...order, ...data };
+                    setOrder(merged);
+                    localStorage.setItem("latestOrder", JSON.stringify(merged));
+
+                    if (data.status === "paid") {
+                      setStatus(t.payPaid);
+                    } else {
+                      setStatus(t.payReady);
+                      alert("Payment not detected yet. Please wait a few seconds and tap again.");
+                    }
+                  } catch (e) {
+                    console.error("manual confirm failed", e);
+                    setStatus(t.payReady);
+                    alert("Payment not detected yet. Please wait a few seconds and tap again.");
+                  } finally {
+                    setConfirmingPaid(false);
+                  }
+                }}
+                style={styles.secondaryBtn}
+              >
+                {confirmingPaid ? "Checking..." : "I've Paid"}
+              </PulseButton>
 
               <PulseButton
                 onClick={() => delayedNavigate("/")}
