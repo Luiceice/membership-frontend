@@ -3896,40 +3896,53 @@ const handleQuery = async (addressOverride) => {
 <div
   style={{
     ...(isPaid
-  ? {
-      ...styles.unlockedNotice,
-      background:
-        "linear-gradient(180deg, rgba(255,220,235,0.16), rgba(255,180,215,0.08))",
-      border: "1px solid rgba(255,205,228,0.32)",
-      boxShadow:
-        "0 0 0 1px rgba(255,220,235,0.06) inset, 0 0 28px rgba(255,182,220,0.28), 0 0 60px rgba(255,182,220,0.16)",
-      textShadow: "0 0 12px rgba(255,220,235,0.32)",
-      color: "#ffe7f3",
-    }
-  : styles.lockNotice),
+      ? {
+          ...styles.unlockedNotice,
+          background:
+            "linear-gradient(180deg, rgba(255,220,235,0.16), rgba(255,180,215,0.08))",
+          border: "1px solid rgba(255,205,228,0.32)",
+          boxShadow:
+            "0 0 0 1px rgba(255,220,235,0.06) inset, 0 0 28px rgba(255,182,220,0.28), 0 0 60px rgba(255,182,220,0.16)",
+          textShadow: "0 0 12px rgba(255,220,235,0.32)",
+          color: "#ffe7f3",
+        }
+      : styles.lockNotice),
     cursor: isPaid ? "default" : "auto",
   }}
 >
   {isPaid ? (
     <>
-      <span
-  style={{
-    ...styles.unlockedBadgeDot,
-    background: "#ffd9ec",
-    boxShadow:
-      "0 0 10px rgba(255,217,236,0.95), 0 0 18px rgba(255,182,220,0.55)",
-  }}
-/>
       {t.unlockedAll}
+
+      <div style={{ marginTop: "8px", textAlign: "center" }}>
+        <a
+          href="https://t.me/voidpulse_support"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            color: "#229ED9",
+            textDecoration: "none",
+            fontSize: "0.82rem",
+            fontWeight: 600,
+          }}
+        >
+          🐰 https://t.me/voidpulse_support
+        </a>
+      </div>
     </>
   ) : (
     <>
-      🔒 {t.lockedRouteDesc.replace("{count}", "25")}
+      {t.highValueDetected}
+
+      <div style={{ marginTop: "6px" }}>
+        🔒 {t.lockedRouteDesc.replace("{count}", "25")}
+      </div>
 
       <div style={{ marginTop: "8px" }}>
         <a
           href="https://t.me/voidpulse_support"
           target="_blank"
+          rel="noreferrer"
           style={{
             color: "#4da6ff",
             textDecoration: "none",
