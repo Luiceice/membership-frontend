@@ -12,7 +12,7 @@ function formatDate(dateStr) {
   return `${y}/${m}/${day}`;
 }
   
-const API_BASE = "https://airdrops-production-4991.up.railway.app";
+const API_BASE = "http://127.0.0.1:8787";
 console.log("API_BASE now =", API_BASE);
 const FREE_DAILY_LIMIT = 3;
 const NAV_DELAY = 400;
@@ -3013,22 +3013,31 @@ function PaymentPage({ lang, setLang }) {
 
 if (saved) {
   const parsed = JSON.parse(saved);
+  const createdAtMs = parsed?.createdAt ? new Date(parsed.createdAt).getTime() : 0;
+  const isFreshOrder =
+    createdAtMs > 0 && Date.now() - createdAtMs < 30 * 60 * 1000;
 
-  if (parsed?.orderId) {
-  const fresh = await fetchJsonSafe(
-    `${API_BASE}/api/orders/${parsed.orderId}`
-  );
+  if (parsed?.orderId && parsed?.plan === plan && isFreshOrder) {
+    const fresh = await fetchJsonSafe(
+      `${API_BASE}/api/orders/${parsed.orderId}`
+    );
 
-  if (fresh?.status === "paid") {
-    setStatus(t.payPaid);
-    window.location.replace("/");
+    if (fresh?.status === "paid") {
+      setStatus(t.payPaid);
+      window.location.replace("/");
+      return;
+    }
+
+    setOrder(fresh);
+    localStorage.setItem(
+      "latestOrder",
+      JSON.stringify({ ...fresh, plan })
+    );
+    setStatus(t.payReady);
     return;
   }
 
-  setOrder(fresh);
-  setStatus(t.payReady);
-  return;
-}
+  localStorage.removeItem("latestOrder");
 }
 
         let membershipData = { active: false, endsAt: null };
@@ -3067,7 +3076,7 @@ if (saved) {
 
         setAlreadyPaid(false);
         setOrder(orderData);
-        localStorage.setItem("latestOrder", JSON.stringify(orderData));
+        localStorage.setItem("latestOrder", JSON.stringify({ ...orderData, plan }));
         setStatus(t.payReady);
       } catch (e) {
         console.error("initPayment failed", e);
@@ -3097,7 +3106,7 @@ if (saved) {
 
         const merged = { ...order, ...data };
         setOrder(merged);
-        localStorage.setItem("latestOrder", JSON.stringify(merged));
+        localStorage.setItem("latestOrder", JSON.stringify({ ...merged, plan }));
 
         if (
           data.status === "paid" &&
@@ -3320,7 +3329,7 @@ if (saved) {
 
                     const merged = { ...order, ...data };
                     setOrder(merged);
-                    localStorage.setItem("latestOrder", JSON.stringify(merged));
+                    localStorage.setItem("latestOrder", JSON.stringify({ ...merged, plan }));
 
                     if (data.status === "paid") {
                       setStatus(t.payPaid);
@@ -4277,7 +4286,7 @@ export default function App() {
   return (
     <>
       <InAppBrowserGuide lang={lang} />
-      {window.location.pathname === "/payment" ? (
+      {window.location.pathname.startsWith("/payment") ? (
         <PaymentPage lang={lang} setLang={setLang} />
       ) : (
         <HomePage lang={lang} setLang={setLang} />
